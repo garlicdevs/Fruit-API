@@ -1,11 +1,12 @@
 from fruit.envs.base import BaseEnvironment
+from fruit.state.processor import AtariProcessor
 from fruit.types.priv import Space
 import gym
 import numpy as np
 
 
 class GymEnvironment(BaseEnvironment):
-    def __init__(self, env_name, state_processor=None):
+    def __init__(self, env_name, state_processor=AtariProcessor()):
         self.env = gym.make(env_name)
         self.env_name = env_name
         self.atari = GymEnvironment._is_atari(env_name)
@@ -74,7 +75,7 @@ class GymEnvironment(BaseEnvironment):
 
     def get_state_space(self):
         if self.processor is None:
-            return Space.to_space(self.env.observation_space)
+            return Space.convert_openai_space(self.env.observation_space)
         else:
             self.reset()
             shape = self.current_state.shape
@@ -86,10 +87,16 @@ class GymEnvironment(BaseEnvironment):
         self.env.render()
 
     def get_action_space(self):
-        return Space.to_space(self.env.action_space)
+        return Space.convert_openai_space(self.env.action_space)
 
     def set_seed(self, seed):
         self.env.seed(seed)
 
     def get_current_steps(self):
         return self.cur_steps
+
+    def get_number_of_objectives(self):
+        return 1
+
+    def get_number_of_agents(self):
+        return 1

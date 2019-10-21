@@ -1,13 +1,13 @@
 from fruit.agents.factory import AgentFactory
 from fruit.configs.a3c import AtariA3CConfig
-from fruit.envs.ale import ALEEnvironment
+from fruit.envs.gym import GymEnvironment
 from fruit.learners.a3c import A3CLearner
 from fruit.networks.policy import PolicyNetwork
 
 
-def train_ale_environment():
+def train_gym_environment():
     # Create an ALE for Breakout
-    environment = ALEEnvironment(ALEEnvironment.BREAKOUT)
+    environment = GymEnvironment("Breakout-v0")
 
     # Create a network configuration for Atari A3C
     network_config = AtariA3CConfig(environment, initial_learning_rate=0.004, debug_mode=True)
@@ -24,4 +24,4 @@ def train_ale_environment():
 
 
 if __name__ == '__main__':
-    train_ale_environment()
+    train_gym_environment()

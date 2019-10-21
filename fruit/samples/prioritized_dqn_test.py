@@ -1,5 +1,5 @@
 from fruit.agents.factory import AgentFactory
-from fruit.configs.dqn import PrioritizedAtariDQNConfig
+from fruit.configs.prioritized_double_dqn import PrioritizedAtariDQNConfig
 from fruit.envs.ale import ALEEnvironment
 from fruit.learners.prioritized_dqn import PrioritizedDQNLearner
 from fruit.networks.policy import PolicyNetwork
