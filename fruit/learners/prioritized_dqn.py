@@ -122,7 +122,7 @@ class PrioritizedDQNLearner(Learner):
                 if self.step_count % 100000 == 0:
                     print('###################################################################')
                     print('TD Errors:', td_errors)
-                    print('Beta:', self.agent.current_beta)
+                    print('Beta:', self.current_beta)
                     print('Mini Batches:', e)
                     print('Weights:', w)
                     print('Max Weight:', mw)
