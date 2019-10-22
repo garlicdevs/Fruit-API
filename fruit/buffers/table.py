@@ -4,7 +4,7 @@ import numpy as np
 # A port from https://github.com/FedUni/MORL/blob/master/morlglue-clients/tools/valuefunction
 class LookupTable(object):
     def __init__(self, environment, init_value=0.):
-        self.num_of_objs = environment.get_num_of_objectives()
+        self.num_of_objs = environment.get_number_of_objectives()
         r, _ = environment.get_action_space().get_range()
         self.num_of_actions = len(r)
         r, _ = environment.get_state_space().get_range()

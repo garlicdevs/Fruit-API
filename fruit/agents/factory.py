@@ -1,4 +1,3 @@
-import multiprocessing
 from fruit.agents.base import BaseAgent
 
 

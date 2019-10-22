@@ -24,7 +24,8 @@ class BaseAgent(object):
         self.env_pool = [self.env.clone() for _ in range(self.num_of_threads)]
 
         self.thread_host = AgentMonitor(self, network=network, log_dir=self.log_dir, save_interval=save_frequency,
-                                        max_training_epochs=self.num_of_epochs, steps_per_epoch=self.steps_per_epoch
+                                        max_training_epochs=self.num_of_epochs, steps_per_epoch=self.steps_per_epoch,
+                                        number_of_objectives=environment.get_number_of_objectives()
                                         )
 
     def set_learners(self, learners):
@@ -37,7 +38,8 @@ class BaseAgent(object):
         if self.thread_pool is None or self.thread_host is None:
             raise ValueError("No definition of worker!!")
 
-        self.network.set_save_model(True)
+        if self.network is not None:
+            self.network.set_save_model(True)
 
         self.is_testing_mode = False
 
@@ -49,7 +51,8 @@ class BaseAgent(object):
         if self.thread_pool is None or self.thread_host is None:
             raise ValueError("No definition of worker!!")
 
-        self.network.set_save_model(False)
+        if self.network is not None:
+            self.network.set_save_model(False)
 
         self.is_testing_mode = True
 

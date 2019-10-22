@@ -2,6 +2,7 @@ import threading
 from sys import platform as _platform
 from fruit.buffers.buffer import StateBuffer
 from fruit.monitor.monitor import AgentMonitor
+import numpy as np
 
 
 class Learner(threading.Thread):
@@ -22,10 +23,10 @@ class Learner(threading.Thread):
         self.num_actions = len(range)
 
         self.network = network
-        self.config = network.network_config
-        self.history_length = self.config.get_history_length()
+        self.config = network.network_config if network is not None else None
+        self.history_length = self.config.get_history_length() if self.config is not None else 1
 
-        if self.history_length > 1:
+        if self.history_length > 1 and self.config is not None:
             self.frame_buffer = StateBuffer(self.config.get_input_shape(), history_length=self.history_length)
 
         self.global_dict = global_dict
@@ -49,7 +50,7 @@ class Learner(threading.Thread):
             'rewards': [],
             'next_states': [],
             'terminals': [],
-            'learning_rate': self.network.get_config().get_initial_learning_rate(),
+            'learning_rate': self.network.get_config().get_initial_learning_rate() if self.network is not None else 'NA',
             'logging': False,
             'global_step': 0
         }
@@ -58,14 +59,21 @@ class Learner(threading.Thread):
         self.environment.reset()
         self.reset()
 
-        total_reward = 0
+        objs = self.environment.get_number_of_objectives()
+        if objs <= 1:
+            total_reward = 0
+        else:
+            total_reward = [0] * objs
         state = self.environment.get_state()
         terminal = False
 
         while not terminal:
             action = self.get_action(state)
             reward = self.environment.step(action)
-            total_reward += reward
+            if objs <= 1:
+                total_reward += reward
+            else:
+                total_reward = np.add(total_reward, reward)
             next_state = self.environment.get_state()
             terminal = self.environment.is_terminal()
             self.update(state, action, reward, next_state, terminal)
@@ -80,14 +88,13 @@ class Learner(threading.Thread):
     def reset(self):
         self.testing = self.agent.is_testing_mode
 
-        self.network.reset_network()
+        if self.network is not None:
+            self.network.reset_network()
 
         if self.history_length > 1:
             self.frame_buffer.reset()
 
-        state = self.environment.get_state()
-
-        if self.history_length > 1:
+            state = self.environment.get_state()
             for _ in range(self.history_length):
                 self.frame_buffer.add_state(state)
 

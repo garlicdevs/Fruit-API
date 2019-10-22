@@ -253,6 +253,9 @@ class DeepSeaTreasure(object):
     def get_num_of_objectives(self):
         return self.num_of_objectives
 
+    def get_num_of_agents(self):
+        return 1
+
     def get_seed(self):
         return self.seed
 

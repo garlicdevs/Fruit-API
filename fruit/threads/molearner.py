@@ -115,7 +115,6 @@ class MOBaseThreadLearner(threading.Thread, MOBaseLearner):
         self.alpha = self.agent.get_current_learning_rate()
 
     def reset(self):
-
         self.testing = self.agent.is_testing_mode
 
         self.reset_minibatch()

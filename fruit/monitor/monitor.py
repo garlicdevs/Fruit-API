@@ -22,7 +22,7 @@ class AgentMonitor:
     Q_LOCK = 'thread_lock'
 
     def __init__(self, agent, network, log_dir, save_interval=1e4, max_training_epochs=100, steps_per_epoch=1e6,
-                 number_of_rewards=1, recent_rewards=100, idle_time=1):
+                 number_of_objectives=1, recent_rewards=100, idle_time=1):
         self.log_dir = log_dir
         self.network = network
         self.num_epochs = max_training_epochs
@@ -32,7 +32,7 @@ class AgentMonitor:
         self.save_interval = save_interval/self.epoch_steps
         self.agent = agent
         self.recent_rewards = cl.deque(maxlen=recent_rewards)
-        self.number_of_rewards = number_of_rewards
+        self.number_of_objectives = number_of_objectives
         self.idle_time = idle_time
         self.summary_writer = None
         self.thread_lock = threading.Lock()
@@ -40,15 +40,15 @@ class AgentMonitor:
         if self.network is not None:
             self.summary_writer = tf.summary.FileWriter(log_dir, graph=self.network.tf_graph)
 
-            if self.number_of_rewards <= 1:
+            if self.number_of_objectives <= 1:
                 with self.network.get_graph().as_default():
                     self.reward = tf.placeholder(tf.int32)
                     self.reward_summary = tf.summary.scalar('reward', self.reward)
             else:
                 with self.network.get_graph().as_default():
-                    self.reward = [tf.placeholder(tf.int32) for _ in range(self.number_of_rewards)]
+                    self.reward = [tf.placeholder(tf.int32) for _ in range(self.number_of_objectives)]
                     self.reward_summary = [tf.summary.scalar('reward_' + str(i), self.reward[i])
-                                           for i in range(self.number_of_rewards)]
+                                           for i in range(self.number_of_objectives)]
         else:
             if not os.path.exists(self.log_dir):
                 os.makedirs(self.log_dir)
@@ -60,20 +60,18 @@ class AgentMonitor:
             AgentMonitor.Q_LOGGING: False,
             AgentMonitor.Q_WRITER: self.summary_writer,
             AgentMonitor.Q_ADD_REWARD: self.__add_reward,
-            AgentMonitor.Q_LEARNING_RATE: self.network.get_config().get_initial_learning_rate(),
+            AgentMonitor.Q_LEARNING_RATE: self.network.get_config().
+                get_initial_learning_rate() if self.network is not None else None,
             AgentMonitor.Q_LOCK: self.thread_lock
         }
 
-        if self.summary_writer is None:
-            raise ValueError('The policy network is None !')
-
     def __add_reward(self, r, episode_steps):
         if self.network is not None:
-            if self.number_of_rewards <= 1:
+            if self.number_of_objectives <= 1:
                 summary = self.network.tf_session.run(self.reward_summary, feed_dict={self.reward: r})
                 self.summary_writer.add_summary(summary, global_step=self.shared_dict[AgentMonitor.Q_GLOBAL_STEPS])
             else:
-                for i in range(self.number_of_rewards):
+                for i in range(self.number_of_objectives):
                     summary = self.network.tf_session.run(self.reward_summary[i], feed_dict={self.reward[i]: r[i]})
                     self.summary_writer.add_summary(summary, global_step=self.shared_dict[AgentMonitor.Q_GLOBAL_STEPS])
         self.shared_dict[AgentMonitor.Q_REWARD_LIST].append([r, self.shared_dict[AgentMonitor.Q_GLOBAL_STEPS],
@@ -88,7 +86,7 @@ class AgentMonitor:
                                                             current_epoch))
         print('Steps Per Second: {0:.4f}'.format(self.shared_dict[AgentMonitor.Q_GLOBAL_STEPS] / time_diff))
         plt.figure(figsize=(6, 4))
-        if self.number_of_rewards <= 1:
+        if self.number_of_objectives <= 1:
             if len(self.shared_dict[AgentMonitor.Q_REWARD_LIST]) > 0:
                 print('Max Reward:', np.max([x[0] for x in self.shared_dict[AgentMonitor.Q_REWARD_LIST]]))
                 print('Mean reward:', np.mean([x[0] for x in self.shared_dict[AgentMonitor.Q_REWARD_LIST]]))
@@ -130,7 +128,11 @@ class AgentMonitor:
         if not self.agent.is_testing_mode:
             self.shared_dict[AgentMonitor.Q_LOGGING] = True
 
-        self.network.save_model(self.log_dir + 'model', global_step=self.shared_dict[AgentMonitor.Q_GLOBAL_STEPS])
+        if self.network is not None:
+            self.network.save_model(self.log_dir + 'model', global_step=self.shared_dict[AgentMonitor.Q_GLOBAL_STEPS])
+        else:
+            _str = self.log_dir + 'checkpoint_' + str(self.shared_dict[AgentMonitor.Q_GLOBAL_STEPS])
+            self.agent.thread_pool[0].save_model(_str)
 
     def run_epochs_mac(self, learners):
         st = time.time()

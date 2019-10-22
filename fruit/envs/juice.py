@@ -116,8 +116,11 @@ class FruitEnvironment(BaseEnvironment):
     def get_current_steps(self):
         return self.num_of_steps
 
-    def get_num_of_objectives(self):
+    def get_number_of_objectives(self):
         return self.game.get_num_of_objectives()
+
+    def get_number_of_agents(self):
+        return self.game.get_num_of_agents()
 
     def get_pareto_solutions(self):
         return self.game.get_pareto_solutions()
