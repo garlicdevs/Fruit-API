@@ -344,7 +344,7 @@ class ALEEnvironment(BaseEnvironment):
     def is_render(self):
         return self.__is_render
 
-    def get_num_of_objectives(self):
+    def get_number_of_objectives(self):
         if self.__processor is None:
             return 1
         else:

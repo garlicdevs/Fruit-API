@@ -17,7 +17,7 @@ def train_gym_environment():
 
     # Create an A3C agent
     agent = AgentFactory.create(A3CLearner, network, environment, num_of_epochs=40, steps_per_epoch=1e6,
-                                checkpoint_frequency=1e6, log_dir='./train/breakout/a3c_checkpoints')
+                                checkpoint_frequency=1e6, log_dir='./train/breakout/a3c_gym_checkpoints')
 
     # Train it
     agent.train()
