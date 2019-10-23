@@ -210,7 +210,7 @@ class AgentMonitor:
         self.__print_log(et - st, current_epoch)
 
         self.shared_dict[AgentMonitor.Q_FINISH] = True
-        
+
         for t in threads:
             t.join()
 
