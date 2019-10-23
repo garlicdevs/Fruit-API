@@ -173,7 +173,10 @@ class SyncSumTree(object):
             self.start_index = (self.start_index + 1) % self.max_size
             self.__modify(self.num_of_levels-1, insert_index, pre_p**self.alpha, priority**self.alpha)
 
-        self.states[insert_index] = state[-1]
+        if self.state_history > 1:
+            self.states[insert_index] = state[-1]
+        else:
+            self.states[insert_index] = state
 
     def __update(self, new_level, old_index, new_value):
         new_index = int(old_index/2)

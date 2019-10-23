@@ -208,5 +208,10 @@ class AgentMonitor:
         self.shared_dict[AgentMonitor.Q_FINISH] = True
         for t in threads:
             t.join()
+
+        current_epoch = self.shared_dict[AgentMonitor.Q_GLOBAL_STEPS] / self.epoch_steps
+        et = time.time()
+        self.__print_log(et - st, current_epoch)
+
         print('All threads stopped')
         return self.shared_dict[AgentMonitor.Q_REWARD_LIST]

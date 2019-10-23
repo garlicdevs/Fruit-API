@@ -40,12 +40,19 @@ def train_multi_objective_agent_mountain_car():
     agent.train()
 
 
-def train_multi_objective_dqn_agent(is_linear=True, extended_config=True):
-    # Create a Deep Sea Treasure game
-    game = DeepSeaTreasure(graphical_state=True, width=5, seed=100, render=False, max_treasure=100, speed=1000)
+def train_multi_objective_dqn_agent(is_linear=False, extended_config=False):
+    if extended_config:
+        # Create a Deep Sea Treasure game
+        game = DeepSeaTreasure(graphical_state=True, width=5, seed=100, render=False, max_treasure=100, speed=1000)
 
-    # Put game into fruit wrapper
-    environment = FruitEnvironment(game, max_episode_steps=60, state_processor=AtariProcessor())
+        # Put game into fruit wrapper
+        environment = FruitEnvironment(game, max_episode_steps=60, state_processor=AtariProcessor())
+    else:
+        # Create a Deep Sea Treasure game
+        game = DeepSeaTreasure(graphical_state=False, width=5, seed=100, render=False, max_treasure=100, speed=1000)
+
+        # Put game into fruit wrapper
+        environment = FruitEnvironment(game, max_episode_steps=60)
 
     # Get treasures
     treasures = game.get_treasure()

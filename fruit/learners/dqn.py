@@ -19,7 +19,8 @@ class DQNLearner(Learner):
         global experience_replay
         with global_dict[AgentMonitor.Q_LOCK]:
             if experience_replay is None:
-                experience_replay = SyncExperienceReplay(experience_replay_size)
+                experience_replay = SyncExperienceReplay(experience_replay_size,
+                                                         state_history=network.network_config.get_history_length())
         self.replay = experience_replay
         self.batch_size = batch_size
         self.warmup_steps = warmup_steps

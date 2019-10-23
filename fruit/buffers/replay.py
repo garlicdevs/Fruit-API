@@ -53,7 +53,10 @@ class SyncExperienceReplay(object):
         else:
             self.start_index = (self.start_index + 1) % self.max_size
 
-        self.states[insert_index] = state[-1]
+        if self.state_history > 1:
+            self.states[insert_index] = state[-1]
+        else:
+            self.states[insert_index] = state
 
     def get_state(self, index):
         if self.current_size < self.max_size:
