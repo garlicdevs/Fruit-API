@@ -37,8 +37,12 @@ class A3CLearner(Learner):
     def get_action(self, state):
         probs = self.get_probs(state)
         action_probs = probs - np.finfo(np.float32).epsneg
-        sample = np.random.multinomial(1, action_probs)
-        action_index = int(np.nonzero(sample)[0])
+        try:
+            sample = np.random.multinomial(1, action_probs)
+            action_index = int(np.nonzero(sample)[0])
+        except:
+            print('Select greedy action', action_probs)
+            action_index = np.argmax(probs)
         return action_index
 
     def update(self, state, action, reward, next_state, terminal):

@@ -33,6 +33,8 @@ class MOQLearner(Learner):
                 self.thresholds = [0.] * (self.num_of_objectives - 1)
             else:
                 self.thresholds = [1./self.num_of_objectives] * self.num_of_objectives
+        else:
+            self.thresholds = thresholds
 
         global table
         with global_dict[AgentMonitor.Q_LOCK]:

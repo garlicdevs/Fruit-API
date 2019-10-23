@@ -17,14 +17,14 @@ class RewardProcessor:
 
 
 class FruitEnvironment(BaseEnvironment):
-    def __init__(self, game_engine, max_episode_steps=10000, state_processor=None,
-                 multi_objective=False, reward_processor=None):
+    def __init__(self, game_engine, max_episode_steps=10000, state_processor=None, reward_processor=None):
         self.game = game_engine
         self.max_episode_steps = max_episode_steps
         self.num_of_steps = 0
         self.processor = state_processor
         self.is_render = self.game.is_render()
-        self.multi_objs = multi_objective
+        self.num_of_objs = game_engine.get_num_of_objectives()
+        self.multi_objs = True if self.num_of_objs > 1 else False
         self.r_processor = reward_processor
 
         # Print info
@@ -41,8 +41,7 @@ class FruitEnvironment(BaseEnvironment):
         if self.r_processor is not None:
             r_processor = self.r_processor.clone()
         return FruitEnvironment(self.game.clone(), max_episode_steps=self.max_episode_steps,
-                                state_processor=processor, multi_objective=self.multi_objs,
-                                reward_processor=r_processor)
+                                state_processor=processor, reward_processor=r_processor)
 
     def get_state(self):
         if self.processor is not None:
