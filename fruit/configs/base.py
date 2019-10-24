@@ -1,4 +1,4 @@
-from fruit.networks.config.optimizer import OptimizerFactory
+from fruit.networks.optimizer import OptimizerFactory
 from fruit.networks.manager import LayerManager
 
 

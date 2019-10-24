@@ -1,5 +1,4 @@
 import multiprocessing
-
 from fruit.learners.base import Learner
 from fruit.monitor.monitor import AgentMonitor
 import numpy as np

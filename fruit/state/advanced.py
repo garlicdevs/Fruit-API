@@ -91,7 +91,6 @@ class SeaquestMapProcessor(Processor):
         self.count = self.count + 1
 
     def process(self, pre_image):
-
         gray_scale = convert_rgb_to_grayscale(pre_image)
 
         self.check_data(gray_scale)
@@ -100,7 +99,7 @@ class SeaquestMapProcessor(Processor):
 
         return resize_img
 
-    def get_rewards(self):
+    def get_rewards(self, rew):
         if len(self.h_rewards) > 0:
             r1 = self.h_rewards.pop()
         else:
@@ -113,10 +112,10 @@ class SeaquestMapProcessor(Processor):
             r3 = self.l_rewards.pop()
         else:
             r3 = 0
-        return [r1, r2, r3, self.current_lives]
+        return [rew, r1, r2, r3, self.current_lives]
 
-    def get_num_of_objectives(self):
-        return 3
+    def get_number_of_objectives(self):
+        return 5
 
     def get_map(self):
         self.map_data.fill(0)

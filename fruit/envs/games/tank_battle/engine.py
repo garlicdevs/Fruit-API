@@ -11,6 +11,8 @@ import sys
 import collections as cl
 import matplotlib.pyplot as plt
 
+from fruit.utils.image import convert_rgb_to_grayscale_and_resize
+
 
 class TankBattle(object):
 
@@ -111,6 +113,12 @@ class TankBattle(object):
     @staticmethod
     def get_game_name():
         return "TANK BATTLE"
+
+    def get_num_of_agents(self):
+        if self.two_players:
+            return 2
+        else:
+            return 1
 
     def clone(self):
         if self.random_seed:
@@ -816,11 +824,11 @@ class TankBattle(object):
         if type == 1:
             map = self.map_2.get_state()
             pygame.pixelcopy.surface_to_array(self.map_buffer_2, map)
-            return self.map_buffer_2
+            return convert_rgb_to_grayscale_and_resize(self.map_buffer_2, (84, 84))
         else:
             map = self.map.get_state()
             pygame.pixelcopy.surface_to_array(self.map_buffer, map)
-            return self.map_buffer
+            return convert_rgb_to_grayscale_and_resize(self.map_buffer, (84, 84))
 
     def is_terminal(self):
         return self.end_of_game

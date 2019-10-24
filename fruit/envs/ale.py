@@ -150,6 +150,9 @@ class ALEEnvironment(BaseEnvironment):
         else:
             self.__multi_objs = False
 
+    def get_processor(self):
+        return self.__processor
+
     def __init_ale(self):
 
         self.__ale.setBool(b'display_screen', self.__is_render)

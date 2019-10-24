@@ -36,6 +36,9 @@ class FruitEnvironment(BaseEnvironment):
         print("Seed: " + str(self.game.get_seed()))
         print("#################################################")
 
+    def get_processor(self):
+        return self.game
+
     def clone(self):
         processor = None
         r_processor = None

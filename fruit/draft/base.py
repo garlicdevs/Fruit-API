@@ -1,7 +1,6 @@
 from functools import partial
 import tensorflow as tf
 from fruit.envs.gym import GymEnvironment
-from fruit.networks.config.optimizer import OptimizerFactory
 from fruit.state.processor import AtariProcessor
 from fruit.networks.manager import LayerManager
 

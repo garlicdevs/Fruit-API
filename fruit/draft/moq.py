@@ -1,10 +1,10 @@
 from fruit.utils.annealer import Annealer
-from fruit.threads.molearner import MOQWorker
+from fruit.draft.threads.molearner import MOQWorker
 from fruit.buffers.table import TLOLookupTable, LinearLookupTable
 from fruit.agents.base import BaseAgent
-from fruit.threads.host import AgentMonitor
+from fruit.draft.threads.host import AgentMonitor
 from fruit.buffers.replay import SyncExperienceReplay
-from fruit.threads.molearner import MOExpReplayWorker
+from fruit.draft.threads.molearner import MOExpReplayWorker
 
 
 class MOQAgent(BaseAgent):
