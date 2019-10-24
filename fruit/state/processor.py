@@ -15,10 +15,10 @@ class Processor(object):
         pass
 
     def get_number_of_objectives(self):
-        pass
+        return 1
 
     def get_number_of_agents(self):
-        pass
+        return 1
 
 
 class AtariProcessor(Processor):
@@ -48,9 +48,3 @@ class AtariProcessor(Processor):
 
     def clone(self):
         return AtariProcessor(self.resize_shape, self.convert_to_grayscale)
-
-    def get_number_of_objectives(self):
-        return 1
-
-    def get_number_of_agents(self):
-        return 1

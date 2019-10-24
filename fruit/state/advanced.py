@@ -217,7 +217,6 @@ class SeaquestProcessor(Processor):
         # save_grayscale_image(img, full_path="/Users/alpha/Desktop/images/image2.png")
 
     def process(self, pre_image):
-
         gray_scale = convert_rgb_to_grayscale(pre_image)
 
         # save_grayscale_image(gray_scale, full_path="/home/garlicdevs/Desktop/images/image.png")
@@ -238,9 +237,6 @@ class SeaquestProcessor(Processor):
         else:
             r2 = 0
         return [r1, r2]
-
-    def get_num_of_objs(self):
-        return 3
 
 
 class RiverraidProcessor(Processor):
@@ -311,7 +307,6 @@ class RiverraidProcessor(Processor):
         return pos
 
     def process(self, pre_image):
-
         gray_scale = convert_rgb_to_grayscale_and_resize(pre_image, self.resize_shape)
 
         self.guided_map = np.copy(gray_scale)

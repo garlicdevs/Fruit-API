@@ -24,6 +24,7 @@ class BaseNetwork(object):
 
                 if num_of_checkpoints < 0:
                     num_of_checkpoints = 1000
+                self.num_of_checkpoints = num_of_checkpoints
                 self.tf_saver = tf.train.Saver(var_list=self.tf_network_variables, max_to_keep=num_of_checkpoints)
 
                 config = tf.ConfigProto(allow_soft_placement=True)
@@ -34,7 +35,7 @@ class BaseNetwork(object):
                     self.tf_session.run(tf.global_variables_initializer())
                 else:
                     self.tf_session.run(tf.global_variables_initializer())
-                    self.load_model(self.load_model_path)
+                    self.load_model()
 
     def create_network(self):
         return self.network_config.init_config()
@@ -43,8 +44,11 @@ class BaseNetwork(object):
         if self.save:
             self.tf_saver.save(self.tf_session, *args, **kwargs)
 
-    def load_model(self, path):
-        self.tf_saver.restore(self.tf_session, path)
+    def load_model(self, path=None):
+        if path is None:
+            self.tf_saver.restore(self.tf_session, self.load_model_path)
+        else:
+            self.tf_saver.restore(self.tf_session, path)
 
     def predict(self, x):
         pass

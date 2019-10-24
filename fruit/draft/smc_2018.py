@@ -4,7 +4,7 @@ from fruit.networks.policy import PolicyNetwork
 from fruit.networks.policy import DQPolicyNetwork
 from fruit.networks.config.atari import AtariA3CConfig
 from fruit.networks.config.atari import AtariDQA3CConfig
-from fruit.utils.processor import AtariBlackenProcessor
+from fruit.state.advanced import AtariBlackenProcessor
 from stat import ST_CTIME
 import os
 import matplotlib.pyplot as plt
@@ -22,19 +22,17 @@ def train_breakout_with_a3c_remove_immutable_objects():
     network_config = AtariA3CConfig(environment, initial_learning_rate=0.004)
 
     # Create a shared network for A3C agent
-    network = PolicyNetwork(network_config, num_of_checkpoints=20)
+    network = PolicyNetwork(network_config, max_num_of_checkpoints=50)
 
     # Create A3C agent
-    agent = A3CAgent(network, environment, num_of_epochs=70, steps_per_epoch=1e6, save_frequency=5e6,
-                     log_dir='./train/smc/Breakout/a3c_gpu_8_threads_breakout_time_based_remove_objects_loss_life_negative_reward',
-                     num_of_threads=8)
+    agent = A3CAgent(network, environment, num_of_epochs=50, steps_per_epoch=1e6, save_frequency=1e6,
+                     log_dir='./train/breakout/a3c_smc_checkpoints')
 
     # Train it
     agent.train()
 
 
 def train_breakout_with_a3c_loss_of_life_reward():
-
     # Create an ALE for game Breakout. negative reward for each lost life
     environment = ALEEnvironment(ALEEnvironment.BREAKOUT, loss_of_life_negative_reward=True)
 
