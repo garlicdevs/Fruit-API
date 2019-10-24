@@ -53,7 +53,7 @@ def jair_train_a3c():
                      save_frequency=5e5,
                      report_frequency=10,
                      update_network_frequency=4,
-                     log_dir='./train/jair/food_collector/a3c_gpu_8_threads_epochs_10_lr_0002',
+                     log_dir='./train/jair/food_collector_/a3c_gpu_8_threads_epochs_10_lr_0002',
                      num_of_threads=8)
 
     agent.train()
@@ -133,14 +133,14 @@ def jair_evaluate_a3c():
 
     network = PolicyNetwork(network_config,
                             using_gpu=True,
-                            load_model_path='./train/jair/food_collector/a3c_gpu_8_threads_epochs_10_lr_0004_06-22-2018-23-01/model-5500367'
+                            load_model_path='./train/jair/food_collector_/a3c_gpu_8_threads_epochs_10_lr_0004_06-22-2018-23-01/model-5500367'
                             )
 
     agent = A3CAgent(network, env,
                      num_of_epochs=1,
                      steps_per_epoch=100000,
                      report_frequency=1,
-                     log_dir='./test/jair/food_collector/a3c_gpu_8_threads_epoches_10_lr_0002',
+                     log_dir='./test/jair/food_collector_/a3c_gpu_8_threads_epoches_10_lr_0002',
                      num_of_threads=1)
 
     agent.evaluate()
@@ -237,13 +237,13 @@ def jair_train_multiple_critics():
                      save_frequency=5e5,
                      report_frequency=10,
                      update_network_frequency=4,
-                     log_dir='./train/jair/food_collector/multiple_critics/a3c_gpu_8_threads_epochs_20_lr_0001_01_00',
+                     log_dir='./train/jair/food_collector_/multiple_critics/a3c_gpu_8_threads_epochs_20_lr_0001_01_00',
                      num_of_threads=8)
 
     agent.train()
 
 
-def jair_eval_multiple_critics(render=False, load_model_path='./train/jair/food_collector/multiple_critics/a3c_gpu_8_threads_epochs_10_lr_0001_01_00_06-29-2018-16-34/model-9500961',
+def jair_eval_multiple_critics(render=False, load_model_path='./train/jair/food_collector_/multiple_critics/a3c_gpu_8_threads_epochs_10_lr_0001_01_00_06-29-2018-16-34/model-9500961',
                                num_of_epochs=10, steps_per_epoch=1e4):
 
     if render:
@@ -276,7 +276,7 @@ def jair_eval_multiple_critics(render=False, load_model_path='./train/jair/food_
                        save_frequency=5e5,
                        report_frequency=10,
                        update_network_frequency=4,
-                       log_dir='./test/jair/food_collector/multiple_critics/a3c_gpu_20_threads_epochs_10_lr_0001_01_00',
+                       log_dir='./test/jair/food_collector_/multiple_critics/a3c_gpu_20_threads_epochs_10_lr_0001_01_00',
                        num_of_threads=num_of_threads)
 
     return agent.evaluate()
@@ -308,13 +308,13 @@ def jair_train_single_critic():
                          save_frequency=5e5,
                          report_frequency=10,
                          update_network_frequency=4,
-                         log_dir='./train/jair/food_collector/single_critic/a3c_gpu_8_threads_epochs_10_lr_0001_multiple_policy_256_5_weights',
+                         log_dir='./train/jair/food_collector_/single_critic/a3c_gpu_8_threads_epochs_10_lr_0001_multiple_policy_256_5_weights',
                          num_of_threads=20)
 
     agent.train()
 
 
-def jair_eval_single_critics(weights, render=False, load_model_path='./train/jair/food_collector/single_critic/a3c_gpu_8_threads_epochs_10_lr_0001_multiple_policy_256_2_weights_09-20-2018-16-06/model-9502807',
+def jair_eval_single_critics(weights, render=False, load_model_path='./train/jair/food_collector_/single_critic/a3c_gpu_8_threads_epochs_10_lr_0001_multiple_policy_256_2_weights_09-20-2018-16-06/model-9502807',
                             num_of_epochs=10, steps_per_epoch=1e4):
 
     if render:
@@ -348,7 +348,7 @@ def jair_eval_single_critics(weights, render=False, load_model_path='./train/jai
                          save_frequency=5e5,
                          report_frequency=10,
                          update_network_frequency=4,
-                         log_dir='./test/jair/food_collector/single_critic/a3c_gpu_8_threads_epochs_10_lr_0001_multiple_policy_256_5_weights',
+                         log_dir='./test/jair/food_collector_/single_critic/a3c_gpu_8_threads_epochs_10_lr_0001_multiple_policy_256_5_weights',
                          num_of_threads=num_of_threads)
 
     return agent.evaluate()
@@ -485,7 +485,7 @@ def find_models(path):
 
 def jair_eval_scmp_mcsp():
     total_scores_1 = []
-    result_dir = './train/jair/food_collector/multiple_critics/results/w_05_05.p'
+    result_dir = './train/jair/food_collector_/multiple_critics/results/w_05_05.p'
     print("File for weight [0.5, 0.5] exists! Skip!")
     file = open(result_dir, 'rb+')
     total_scores_1 = pickle.load(file)
@@ -493,7 +493,7 @@ def jair_eval_scmp_mcsp():
 
     # Food Collector with 4 weights
     total_scores_2 = []
-    result_dir = './train/jair/food_collector/single_critic/results/w_4w' + '_' + str(0.5) + '_' + str(0.5) + '.p'
+    result_dir = './train/jair/food_collector_/single_critic/results/w_4w' + '_' + str(0.5) + '_' + str(0.5) + '.p'
     print("File for 4 weights exists! Skip!")
     file = open(result_dir, 'rb+')
     total_scores_2 = pickle.load(file)
@@ -558,7 +558,7 @@ def jair_eval_scmp_mcsp():
     axes.set_xticks(r)
     plt.ylim(-10, 280)
     axes.set_yticks([0, 100, 200, 300, 400, 500, 600])
-    plt.savefig('./train/jair/food_collector/single_critic/results/scmp_mcsp.pdf')
+    plt.savefig('./train/jair/food_collector_/single_critic/results/scmp_mcsp.pdf')
     plt.show()
 
 
@@ -568,9 +568,9 @@ def eval_mcsp_food_collector():
     total_scores = []
 
     # Food Collector with weight [1, 0]
-    result_dir = './train/jair/food_collector/multiple_critics/results/w_1_0.p'
+    result_dir = './train/jair/food_collector_/multiple_critics/results/w_1_0.p'
     if not os.path.isfile(result_dir):
-        model_path = './train/jair/food_collector/multiple_critics/a3c_gpu_8_threads_epochs_10_lr_0001_01_00_06-29-2018-16-34'
+        model_path = './train/jair/food_collector_/multiple_critics/a3c_gpu_8_threads_epochs_10_lr_0001_01_00_06-29-2018-16-34'
         models = ['500066','1000098', '1500195', '2000216', '2500226', '3000278', '3500299', '4000401', '4500454', '5000526',
                   '5500605', '6000631', '6500678', '7000731', '7500824', '8000867', '8500881', '9000891', '9500961']
 
@@ -591,9 +591,9 @@ def eval_mcsp_food_collector():
 
     # Food Collector with weight [0.2, 0.8]
     total_scores_1 = []
-    result_dir = './train/jair/food_collector/multiple_critics/results/w_033_067.p'
+    result_dir = './train/jair/food_collector_/multiple_critics/results/w_033_067.p'
     if not os.path.isfile(result_dir):
-        model_path = './train/jair/food_collector/multiple_critics/a3c_gpu_8_threads_epochs_10_lr_0001_02_08_06-28-2018-22-57'
+        model_path = './train/jair/food_collector_/multiple_critics/a3c_gpu_8_threads_epochs_10_lr_0001_02_08_06-28-2018-22-57'
         models = find_models(model_path)
         for m in models:
             full_model_path = model_path + '/model-' + m
@@ -612,9 +612,9 @@ def eval_mcsp_food_collector():
 
     # Food Collector with weight [0.5, 0.5]
     total_scores_2 = []
-    result_dir = './train/jair/food_collector/multiple_critics/results/w_05_05.p'
+    result_dir = './train/jair/food_collector_/multiple_critics/results/w_05_05.p'
     if not os.path.isfile(result_dir):
-        model_path = './train/jair/food_collector/multiple_critics/a3c_gpu_8_threads_epochs_10_lr_0001_05_05_06-28-2018-03-33'
+        model_path = './train/jair/food_collector_/multiple_critics/a3c_gpu_8_threads_epochs_10_lr_0001_05_05_06-28-2018-03-33'
         models = ['500092', '1000280', '1500439', '2000560', '2500733', '3000804', '3500899', '4000913', '4501054',
                   '5001204',
                   '5501407', '6001432', '6501659', '7001888', '7501933', '8002144', '8502346', '9002397', '9502467']
@@ -637,9 +637,9 @@ def eval_mcsp_food_collector():
 
     # Food Collector with weight [0.8, 0.2]
     total_scores_3 = []
-    result_dir = './train/jair/food_collector/multiple_critics/results/w_067_033.p'
+    result_dir = './train/jair/food_collector_/multiple_critics/results/w_067_033.p'
     if not os.path.isfile(result_dir):
-        model_path = './train/jair/food_collector/multiple_critics/a3c_gpu_8_threads_epochs_10_lr_0001_08_02_06-29-2018-16-33'
+        model_path = './train/jair/food_collector_/multiple_critics/a3c_gpu_8_threads_epochs_10_lr_0001_08_02_06-29-2018-16-33'
         models = find_models(model_path)
         for m in models:
             full_model_path = model_path + '/model-' + m
@@ -660,9 +660,9 @@ def eval_mcsp_food_collector():
 
     # Food Collector with weight [0, 1]
     total_scores_4 = []
-    result_dir = './train/jair/food_collector/multiple_critics/results/w_0_1.p'
+    result_dir = './train/jair/food_collector_/multiple_critics/results/w_0_1.p'
     if not os.path.isfile(result_dir):
-        model_path = './train/jair/food_collector/multiple_critics/a3c_gpu_8_threads_epochs_10_lr_0001_00_01_06-30-2018-20-20'
+        model_path = './train/jair/food_collector_/multiple_critics/a3c_gpu_8_threads_epochs_10_lr_0001_00_01_06-30-2018-20-20'
         models = ['500099', '1000288', '1500402', '2000457', '2500634', '3000769', '3501004', '4001103', '4501216',
                   '5001385',
                   '5501391', '6001424', '6501614', '7001840', '7501939', '8001958', '8502089', '9002127',
@@ -809,7 +809,7 @@ def eval_mcsp_food_collector():
     axes.set_xticks(r)
     plt.ylim(-10, 525)
     axes.set_yticks([0, 100, 200, 300, 400, 500])
-    plt.savefig('./train/jair/food_collector/multiple_critics/results/perform1.pdf')
+    plt.savefig('./train/jair/food_collector_/multiple_critics/results/perform1.pdf')
     plt.show()
 
     # Plot the result (second score)
@@ -936,7 +936,7 @@ def eval_mcsp_food_collector():
     axes.set_xticks(r)
     plt.ylim(-10, 280)
     axes.set_yticks([0, 50, 100, 150, 200, 250])
-    plt.savefig('./train/jair/food_collector/multiple_critics/results/perform2.pdf')
+    plt.savefig('./train/jair/food_collector_/multiple_critics/results/perform2.pdf')
     plt.show()
 
 
@@ -947,18 +947,18 @@ def eval_scmp_food_collector(weights=[[0.5, 0.5]]):
     p1 = weights[0][0]
     p2 = weights[0][1]
 
-    result_dir = './train/jair/food_collector/multiple_critics/results/w_1_0.p'
+    result_dir = './train/jair/food_collector_/multiple_critics/results/w_1_0.p'
     file = open(result_dir, 'rb+')
     total_scores_base = pickle.load(file)
     print(total_scores_base)
 
     # Food Collector with 2 weights
     if p1 == 1 and p2 == 0:
-        result_dir = './train/jair/food_collector/single_critic/results/w_2w.p'
+        result_dir = './train/jair/food_collector_/single_critic/results/w_2w.p'
     else:
-        result_dir = './train/jair/food_collector/single_critic/results/w_2w' + '_' + str(p1) + '_' + str(p2) + '.p'
+        result_dir = './train/jair/food_collector_/single_critic/results/w_2w' + '_' + str(p1) + '_' + str(p2) + '.p'
     if not os.path.isfile(result_dir):
-        model_path = './train/jair/food_collector/single_critic/a3c_gpu_8_threads_epochs_10_lr_0001_multiple_policy_256_2_weights_09-20-2018-16-06'
+        model_path = './train/jair/food_collector_/single_critic/a3c_gpu_8_threads_epochs_10_lr_0001_multiple_policy_256_2_weights_09-20-2018-16-06'
         models = find_models(model_path)
         for m in models:
             full_model_path = model_path + '/model-' + m
@@ -977,11 +977,11 @@ def eval_scmp_food_collector(weights=[[0.5, 0.5]]):
     # Food Collector with 3 weights
     total_scores_1 = []
     if p1 == 1 and p2 == 0:
-        result_dir = './train/jair/food_collector/single_critic/results/w_3w.p'
+        result_dir = './train/jair/food_collector_/single_critic/results/w_3w.p'
     else:
-        result_dir = './train/jair/food_collector/single_critic/results/w_3w' + '_' + str(p1) + '_' + str(p2) + '.p'
+        result_dir = './train/jair/food_collector_/single_critic/results/w_3w' + '_' + str(p1) + '_' + str(p2) + '.p'
     if not os.path.isfile(result_dir):
-        model_path = './train/jair/food_collector/single_critic/a3c_gpu_8_threads_epochs_10_lr_0001_multiple_policy_256_3_weights_09-21-2018-14-28'
+        model_path = './train/jair/food_collector_/single_critic/a3c_gpu_8_threads_epochs_10_lr_0001_multiple_policy_256_3_weights_09-21-2018-14-28'
         models = find_models(model_path)
         for m in models:
             full_model_path = model_path + '/model-' + m
@@ -1002,11 +1002,11 @@ def eval_scmp_food_collector(weights=[[0.5, 0.5]]):
     # Food Collector with 4 weights
     total_scores_2 = []
     if p1 == 1 and p2 == 0:
-        result_dir = './train/jair/food_collector/single_critic/results/w_4w.p'
+        result_dir = './train/jair/food_collector_/single_critic/results/w_4w.p'
     else:
-        result_dir = './train/jair/food_collector/single_critic/results/w_4w' + '_' + str(p1) + '_' + str(p2) + '.p'
+        result_dir = './train/jair/food_collector_/single_critic/results/w_4w' + '_' + str(p1) + '_' + str(p2) + '.p'
     if not os.path.isfile(result_dir):
-        model_path = './train/jair/food_collector/single_critic/a3c_gpu_8_threads_epochs_10_lr_0001_multiple_policy_256_4_weights_07-12-2018-02-35'
+        model_path = './train/jair/food_collector_/single_critic/a3c_gpu_8_threads_epochs_10_lr_0001_multiple_policy_256_4_weights_07-12-2018-02-35'
         models = find_models(model_path)
         for m in models:
             full_model_path = model_path + '/model-' + m
@@ -1026,11 +1026,11 @@ def eval_scmp_food_collector(weights=[[0.5, 0.5]]):
     # Food Collector with 5 weights
     total_scores_3 = []
     if p1 == 1 and p2 == 0:
-        result_dir = './train/jair/food_collector/single_critic/results/w_5w.p'
+        result_dir = './train/jair/food_collector_/single_critic/results/w_5w.p'
     else:
-        result_dir = './train/jair/food_collector/single_critic/results/w_5w' + '_' + str(p1) + '_' + str(p2) + '.p'
+        result_dir = './train/jair/food_collector_/single_critic/results/w_5w' + '_' + str(p1) + '_' + str(p2) + '.p'
     if not os.path.isfile(result_dir):
-        model_path = './train/jair/food_collector/single_critic/a3c_gpu_8_threads_epochs_10_lr_0001_multiple_policy_256_5_weights_07-12-2018-02-37'
+        model_path = './train/jair/food_collector_/single_critic/a3c_gpu_8_threads_epochs_10_lr_0001_multiple_policy_256_5_weights_07-12-2018-02-37'
         models = find_models(model_path)
         for m in models:
             full_model_path = model_path + '/model-' + m
@@ -1174,7 +1174,7 @@ def eval_scmp_food_collector(weights=[[0.5, 0.5]]):
     axes.set_xticks(r)
     plt.ylim(-10, 525)
     axes.set_yticks([0, 100, 200, 300, 400, 500])
-    plt.savefig('./train/jair/food_collector/single_critic/results/perform1_'+str(p1)+'_'+str(p2)+'.pdf')
+    plt.savefig('./train/jair/food_collector_/single_critic/results/perform1_'+str(p1)+'_'+str(p2)+'.pdf')
     plt.show()
 
     # Plot the result (second score)
@@ -1301,7 +1301,7 @@ def eval_scmp_food_collector(weights=[[0.5, 0.5]]):
     axes.set_xticks(r)
     plt.ylim(-10, 280)
     axes.set_yticks([0, 50, 100, 150, 200, 250])
-    plt.savefig('./train/jair/food_collector/single_critic/results/perform2_' + str(p1) + '_' + str(p2) + '.pdf')
+    plt.savefig('./train/jair/food_collector_/single_critic/results/perform2_' + str(p1) + '_' + str(p2) + '.pdf')
     plt.show()
 
 
@@ -2308,9 +2308,9 @@ def eval_a3c_food_collector():
 
     # A3C - 10 epoches
     total_scores = []
-    result_dir = './train/jair/food_collector/multiple_critics/results/w_1_0.p'
+    result_dir = './train/jair/food_collector_/multiple_critics/results/w_1_0.p'
     if not os.path.isfile(result_dir):
-        model_path = './train/jair/food_collector/multiple_critics/a3c_gpu_8_threads_epochs_10_lr_0001_00_01_06-30-2018-20-20'
+        model_path = './train/jair/food_collector_/multiple_critics/a3c_gpu_8_threads_epochs_10_lr_0001_00_01_06-30-2018-20-20'
         models = find_models(model_path)
         for m in models:
             full_model_path = model_path + '/model-' + m
@@ -2330,9 +2330,9 @@ def eval_a3c_food_collector():
 
     # A3C - 20 epoches
     total_scores_1 = []
-    result_dir = './train/jair/food_collector/multiple_critics/results/a3c_org_20.p'
+    result_dir = './train/jair/food_collector_/multiple_critics/results/a3c_org_20.p'
     if not os.path.isfile(result_dir):
-        model_path = './train/jair/food_collector/multiple_critics/a3c_gpu_8_threads_epochs_20_lr_0001_01_00_09-23-2018-13-05'
+        model_path = './train/jair/food_collector_/multiple_critics/a3c_gpu_8_threads_epochs_20_lr_0001_01_00_09-23-2018-13-05'
         models = find_models(model_path)
         for m in models:
             full_model_path = model_path + '/model-' + m
@@ -2352,9 +2352,9 @@ def eval_a3c_food_collector():
 
     # A3C - 20 threads - 10 epoches
     total_scores_2 = []
-    result_dir = './train/jair/food_collector/multiple_critics/results/a3c_org_20t_10.p'
+    result_dir = './train/jair/food_collector_/multiple_critics/results/a3c_org_20t_10.p'
     if not os.path.isfile(result_dir):
-        model_path = './train/jair/food_collector/multiple_critics/a3c_gpu_20_threads_epochs_10_lr_0001_01_00_07-19-2018-10-33'
+        model_path = './train/jair/food_collector_/multiple_critics/a3c_gpu_20_threads_epochs_10_lr_0001_01_00_07-19-2018-10-33'
         models = find_models(model_path)
         for m in models:
             full_model_path = model_path + '/model-' + m
@@ -2462,7 +2462,7 @@ def eval_a3c_food_collector():
     axes.set_xticks(r)
     plt.ylim(-10, 525)
     axes.set_yticks([0, 100, 200, 300, 400, 500])
-    plt.savefig('./train/jair/food_collector/multiple_critics/results/a3c_1.pdf')
+    plt.savefig('./train/jair/food_collector_/multiple_critics/results/a3c_1.pdf')
     plt.show()
 
     # Plot the result (2nd score)
@@ -2558,7 +2558,7 @@ def eval_a3c_food_collector():
     axes.set_xticks(r)
     plt.ylim(-10, 280)
     axes.set_yticks([0, 50, 100, 150, 200, 250])
-    plt.savefig('./train/jair/food_collector/multiple_critics/results/a3c_2.pdf')
+    plt.savefig('./train/jair/food_collector_/multiple_critics/results/a3c_2.pdf')
     plt.show()
 
 
@@ -2597,9 +2597,9 @@ if __name__ == "__main__":
 
     # eval_scmp_seaquest(weights=[[0, 0.5, 0.5]])
 
-    #jair_eval_multiple_critics(render=True, load_model_path="./train/jair/food_collector/multiple_critics/a3c_gpu_8_threads_epochs_10_lr_0001_05_05_06-28-2018-03-33/model-9502467")
+    #jair_eval_multiple_critics(render=True, load_model_path="./train/jair/food_collector_/multiple_critics/a3c_gpu_8_threads_epochs_10_lr_0001_05_05_06-28-2018-03-33/model-9502467")
 
-    # jair_eval_single_critics(render=True, weights=[[0.5, 0.5]], load_model_path="./train/jair/food_collector/single_critic/a3c_gpu_8_threads_epochs_10_lr_0001_multiple_policy_256_5_weights_07-12-2018-02-37/model-9501532")
+    # jair_eval_single_critics(render=True, weights=[[0.5, 0.5]], load_model_path="./train/jair/food_collector_/single_critic/a3c_gpu_8_threads_epochs_10_lr_0001_multiple_policy_256_5_weights_07-12-2018-02-37/model-9501532")
 
     # jair_eval_seaquest_multiple_critics(render=True, load_model_path='/home/garlicdevs/Dropbox/PhD/Tensorflow/A3C/fruit/examples/train/jair/seaquest/multiple_critics/a3c_gpu_8_threads_epochs_20_lr_0001_w_04_03_03_07-08-2018-05-17/model-19509950',
     #                                    weights=[0.4, 0.3, 0.3])

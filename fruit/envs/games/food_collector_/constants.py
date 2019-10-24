@@ -1,0 +1,31 @@
+class GlobalConstants:
+
+    SCREEN_SIZE = 300
+    TILE_SIZE = 50
+
+    PLAYER_SPEED = 50
+    LIVES_FACTOR_SPEED = 5
+
+    NUM_OF_ACTIONS = 6
+
+    LEFT_ACTION = 0
+    RIGHT_ACTION = 1
+    UP_ACTION = 2
+    DOWN_ACTION = 3
+    PICK_ACTION = 4
+    EAT_ACTION = 5
+    
+    FONT_SIZE = 8
+
+    NUM_OF_TILES = 5
+    LAND_TILE = -1
+    TREE_TILE = 0
+    PLANT_TILE = 1
+    APPLE_TILE = 2
+    DOOR_TILE = 3
+    KEY_TILE = 4
+
+    PICK_RICE_REWARD = 10
+    PICK_FOOD_REWARD = 5
+    FIND_SHOP_REWARD = 10
+    EAT_REWARD = 5
