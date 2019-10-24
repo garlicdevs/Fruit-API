@@ -7,7 +7,7 @@ from fruit.networks.policy import PolicyNetwork
 
 def train_ale_environment():
     # Create an ALE for Breakout
-    environment = ALEEnvironment(ALEEnvironment.BREAKOUT)
+    environment = ALEEnvironment(ALEEnvironment.SEAQUEST)
 
     # Create a network configuration for Atari DQN
     network_config = PrioritizedAtariDQNConfig(environment, debug_mode=True)
@@ -16,8 +16,8 @@ def train_ale_environment():
     network = PolicyNetwork(network_config, max_num_of_checkpoints=40)
 
     # Create a DQN agent
-    agent = AgentFactory.create(PrioritizedDQNLearner, network, environment, num_of_epochs=20, steps_per_epoch=1e6,
-                                checkpoint_frequency=5e5, log_dir='./train/breakout/prioritized_dqn_checkpoints')
+    agent = AgentFactory.create(PrioritizedDQNLearner, network, environment, num_of_epochs=40, steps_per_epoch=1e6,
+                                checkpoint_frequency=1e6, log_dir='./train/seaquest/prioritized_dqn_checkpoints')
 
     # Train it
     agent.train()

@@ -1,6 +1,6 @@
 import tensorflow as tf
-import tflearn
 from tensorflow.python.ops.nn import rnn_cell as _rnn_cell
+import tflearn
 
 
 # Minimal implementation of layer manager
