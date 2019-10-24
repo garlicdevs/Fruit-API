@@ -1,4 +1,4 @@
-from fruit.envs.games.food_collector.constants import GlobalConstants
+from fruit.envs.games.food_collector_.constants import GlobalConstants
 import pygame
 import numpy as np
 

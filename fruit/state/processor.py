@@ -11,8 +11,8 @@ class Processor(object):
     def reset(self):
         pass
 
-    def get_rewards(self):
-        pass
+    def get_rewards(self, reward):
+        return reward
 
     def get_number_of_objectives(self):
         return 1

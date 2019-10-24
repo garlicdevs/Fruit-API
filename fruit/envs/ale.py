@@ -10,7 +10,6 @@ from fruit.types.priv import Space
 
 
 class ALEEnvironment(BaseEnvironment):
-
     # 63 games
     ADVENTURE = "adventure"
     AIR_RAID = "air_raid"
@@ -250,12 +249,8 @@ class ALEEnvironment(BaseEnvironment):
                 self.__current_state = self.__processor.process(self.__current_buffer)
 
         if self.__multi_objs and self.__processor is not None:
-            sub_rewards = self.__processor.get_rewards()
-            re = [rew]
-            if rew is not None:
-                for r in sub_rewards:
-                    re.append(r)
-            return re
+            all_rewards = self.__processor.get_rewards(rew)
+            return all_rewards
         else:
             return rew
 

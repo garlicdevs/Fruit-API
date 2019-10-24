@@ -1,6 +1,6 @@
-from fruit.envs.games.food_collector.constants import GlobalConstants
-from fruit.envs.games.food_collector.manager import ResourceManager
-from fruit.envs.games.food_collector.sprites import TreeSprite, LandSprite
+from fruit.envs.games.food_collector_.constants import GlobalConstants
+from fruit.envs.games.food_collector_.manager import ResourceManager
+from fruit.envs.games.food_collector_.sprites import TreeSprite, LandSprite
 
 
 class StageMap(object):

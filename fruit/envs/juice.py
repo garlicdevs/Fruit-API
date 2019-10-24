@@ -15,6 +15,9 @@ class RewardProcessor:
     def clone(self):
         pass
 
+    def get_number_of_objectives(self):
+        pass
+
 
 class FruitEnvironment(BaseEnvironment):
     def __init__(self, game_engine, max_episode_steps=10000, state_processor=None, reward_processor=None):
@@ -72,23 +75,15 @@ class FruitEnvironment(BaseEnvironment):
             else:
                 rewards = self.game.step(action)
                 total_reward = 0
-                for r in rewards:
-                    total_reward = total_reward + r
+                if isinstance(rewards, (list, tuple, np.ndarray)):
+                    for r in rewards:
+                        total_reward = total_reward + r
+                else:
+                    total_reward = rewards
                 return total_reward
         else:
             rewards = self.game.step(action)
             return self.r_processor.get_reward(rewards)
-
-    def step_all(self, action):
-        self.num_of_steps = self.num_of_steps + 1
-        if self.multi_objs:
-            return self.game.step_all(action)
-        else:
-            rewards, next_state, terminal, info = self.game.step_all(action)
-            total_reward = 0
-            for r in rewards:
-                total_reward = total_reward + r
-            return total_reward, next_state, terminal, info
 
     def get_state_space(self):
         from fruit.types.priv import Space
@@ -116,7 +111,10 @@ class FruitEnvironment(BaseEnvironment):
         return self.num_of_steps
 
     def get_number_of_objectives(self):
-        return self.game.get_num_of_objectives()
+        if self.r_processor is not None:
+            return self.r_processor.get_number_of_objectives()
+        else:
+            return self.game.get_num_of_objectives()
 
     def get_number_of_agents(self):
         return self.game.get_num_of_agents()

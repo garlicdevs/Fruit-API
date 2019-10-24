@@ -227,7 +227,7 @@ class SeaquestProcessor(Processor):
 
         return resize_img
 
-    def get_rewards(self):
+    def get_rewards(self, rew):
         if len(self.h_rewards) > 0:
             r1 = self.h_rewards.pop()
         else:
@@ -236,7 +236,10 @@ class SeaquestProcessor(Processor):
             r2 = self.r_rewards.pop()
         else:
             r2 = 0
-        return [r1, r2]
+        return [rew, r1, r2]
+
+    def get_number_of_objectives(self):
+        return 3
 
 
 class RiverraidProcessor(Processor):

@@ -1,7 +1,7 @@
-from fruit.envs.games.food_collector.constants import GlobalConstants
-from fruit.envs.games.food_collector.manager import ResourceManager
-from fruit.envs.games.food_collector.stages import StageMap
-from fruit.envs.games.food_collector.sprites import DoorSprite, FoodSprite, CharacterSprite, AppleSprite
+from fruit.envs.games.food_collector_.constants import GlobalConstants
+from fruit.envs.games.food_collector_.manager import ResourceManager
+from fruit.envs.games.food_collector_.stages import StageMap
+from fruit.envs.games.food_collector_.sprites import DoorSprite, FoodSprite, CharacterSprite, AppleSprite
 from fruit.envs.games.utils import Utils
 import numpy as np
 import pygame
@@ -54,7 +54,7 @@ class FoodCollector(object):
         self.frame_skip = frame_skip
         self.started_time = Utils.get_current_time()
         self.next_rewards = cl.deque(maxlen=100)
-        self.num_of_objs = 1
+        self.num_of_objs = 2
         self.steps = 0
         self.life = 100
         self.life_fq = 10
