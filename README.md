@@ -5,7 +5,7 @@ meticulously to provide a friendly user interface. Specifically, **Fruit API** h
 following noticeable contributions:
 
 
-* Friendly API: **Fruit API** follows a modular design combined with the OOP in Python
+* **Friendly API**: **Fruit API** follows a modular design combined with the OOP in Python
 to provide a solid foundation and an easy-to-use user interface via a simplified 
 API. Based on the design, our ultimate goal is to provide researchers a means to 
 develop reinforcement learning (RL) algorithms with little effort. In particular, 
@@ -16,40 +16,40 @@ so that users can inherit a suitable one.
 
 ![Figure 1](./fruit/docs/images/figure_1.png)
 
-* Portability: The framework can work properly in different operating systems such as 
+* **Portability**: The framework can work properly in different operating systems such as 
 Windows, Linux, and Mac OS.
 
-* Interoperability: We keep in mind that the framework should work with any deep learning
+* **Interoperability**: We keep in mind that the framework should work with any deep learning
 libraries such as PyTorch, Tensorflow, Keras, etc. Researchers would define the neural 
 network architecture in the config file by using their favourite libraries. Instead of 
 implementing a lot of deep RL algorithms, we provide a flexible way to integrate with 
 existing deep RL libraries.
 
-* Generality: The framework supports different disciplines in reinforement learning 
+* **Generality**: The framework supports different disciplines in reinforement learning 
 such as: multiple objectives, multiple agents, and human-machine interaction.
 
 We implemented a set of deep RL baselines in different disciplines as sample references:
-* Value-based deep RL:
- - Deep Q-Network (DQN)
- - Double DQN
- - Duel DQN
- - Prioritized Experience Replay (Proportional-based approach)
- - DQN variants (asynchronous/synchronous method)
-* Policy-based deep RL:
- - A3C
-* Multi-agent deep RL:
- - Multi-agent A3C
- - Multi-agent A3C with communication map
-* Multi-objective RL/deep RL:
- - Q-Learning
- - Multi-objective Q-Learning (linear and non-linear method)
- - Multi-objective DQN (linear and non-linear method)
- - Multi-objective A3C (linear and non-linear method)
- - Single policy/multi-policy method
- - Hypervolume calculation
-* Human-agent interaction
- - A3C with map
- - Divide and conquer method with DQN
+* *Value-based deep RL*:
+ * Deep Q-Network (DQN)
+ * Double DQN
+ * Duel DQN
+ * Prioritized Experience Replay (Proportional-based approach)
+ * DQN variants (asynchronous/synchronous method)
+* *Policy-based deep RL*:
+ * A3C
+* *Multi-agent deep RL*:
+ * Multi-agent A3C
+ * Multi-agent A3C with communication map
+* *Multi-objective RL/deep RL*:
+ * Q-Learning
+ * Multi-objective Q-Learning (linear and non-linear method)
+ * Multi-objective DQN (linear and non-linear method)
+ * Multi-objective A3C (linear and non-linear method)
+ * Single policy/multi-policy method
+ * Hypervolume calculation
+* *Human-agent interaction*
+ * A3C with map
+ * Divide and conquer strategy with DQN
  
 Finally, we developed 5 environments as a testbed to examine different disciplines in deep RL:
 * Mountain car (multi-objective environment/graphical support)
