@@ -61,14 +61,22 @@ We implemented a set of deep RL baselines in different disciplines as sample ref
  * A3C with map
  * Divide and conquer strategy with DQN
  
-Finally, we developed 5 environments as a testbed to examine different disciplines in deep RL:
+*Built-in environments:
+
+ * Arcade learning environment (Atari games)
+ * Gym
+ 
+External environments can be integrated into the framework easily by plugging into 
+`FruitEnvironment`. Finally, we developed 5 environments as a testbed to examine different 
+disciplines in deep RL:
+
 * Mountain car (multi-objective environment/graphical support)
 * Deep sea treasure (multi-objective environment/graphical support)
 * Tank battle (multi-agent/multi-objective/human-agent cooperation environment)
 * Food collector (multi-objective environment)
 * Milk factory (multi-agent/heterogeneous environment)
  
-Demonstrations can be found here:
+Video demonstrations can be found here (click on the images):
 
 <div align="center">
   <a href="https://www.youtube.com/watch?v=WCa6n1F6UM8" target="_blank">
