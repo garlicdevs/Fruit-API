@@ -5,7 +5,7 @@ from fruit.envs.ale import ALEEnvironment
 from fruit.envs.games.tank_battle.engine import TankBattle
 from fruit.envs.juice import FruitEnvironment, RewardProcessor
 from fruit.learners.a3c import A3CLearner
-from fruit.learners.a3c_map import A3CMapLearner
+from fruit.learners.map import A3CMapLearner
 from fruit.networks.policy import PolicyNetwork
 from fruit.state.advanced import SeaquestMapProcessor
 from fruit.state.processor import AtariProcessor

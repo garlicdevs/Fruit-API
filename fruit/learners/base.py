@@ -60,6 +60,7 @@ class Learner(threading.Thread):
         self.reset()
 
         objs = self.environment.get_number_of_objectives()
+
         if objs <= 1:
             total_reward = 0
         else:

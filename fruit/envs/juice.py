@@ -27,7 +27,9 @@ class FruitEnvironment(BaseEnvironment):
         self.processor = state_processor
         self.is_render = self.game.is_render()
         self.num_of_objs = game_engine.get_num_of_objectives()
+        self.num_of_agents = game_engine.get_num_of_agents()
         self.multi_objs = True if self.num_of_objs > 1 else False
+        self.multi_agents = True if self.num_of_agents > 1 else False
         self.r_processor = reward_processor
 
         # Print info
@@ -128,23 +130,3 @@ class FruitEnvironment(BaseEnvironment):
     def get_key_pressed(self):
         return self.game.get_key_pressed()
 
-
-class MAFruitEnvironment(FruitEnvironment):
-
-    def clone(self):
-        return MAFruitEnvironment(self.game.clone(), max_episode_steps=self.max_episode_steps,
-                                  state_processor=self.processor.clone(), multi_objective=self.multi_objs)
-
-    def step(self, action):
-        self.num_of_steps = self.num_of_steps + 1
-        if self.multi_objs:
-            return self.game.step(action)
-        else:
-            rewards = self.game.step(action)
-            total_reward = 0
-            for r in rewards:
-                total_reward = total_reward + r
-            return total_reward
-
-    def get_num_of_agents(self):
-        return self.game.get_num_of_agents()

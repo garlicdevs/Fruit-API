@@ -168,6 +168,9 @@ class MilkFactory(object):
                            number_of_exits=self.num_of_exits)
 
     def get_num_of_objectives(self):
+        return 1
+
+    def get_num_of_agents(self):
         return self.num_of_objs
 
     def get_seed(self):
