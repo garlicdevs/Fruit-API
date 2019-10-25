@@ -1,5 +1,7 @@
 ![Logo](./fruit/docs/images/home-logo.png)
 
+## Introduction
+
 **Fruit API** is a universal deep reinforcement learning framework, which is designed 
 meticulously to provide a friendly user interface. Specifically, **Fruit API** has the 
 following noticeable contributions:
@@ -61,7 +63,7 @@ We implemented a set of deep RL baselines in different disciplines as sample ref
  * A3C with map
  * Divide and conquer strategy with DQN
  
-*Built-in environments:
+*Built-in environments*
 
  * Arcade learning environment (Atari games)
  * Gym
@@ -97,4 +99,8 @@ Video demonstrations can be found here (click on the images):
   <br /><br />
 </div>
  
- 
+## Documentation
+
+## Acknowledgement
+
+## References
