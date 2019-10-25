@@ -29,25 +29,35 @@ existing deep RL libraries.
 such as: multiple objectives, multiple agents, and human-machine interaction.
 
 We implemented a set of deep RL baselines in different disciplines as sample references:
+
 *Value-based deep RL*:
+
  * Deep Q-Network (DQN)
  * Double DQN
  * Duel DQN
  * Prioritized Experience Replay (Proportional-based approach)
  * DQN variants (asynchronous/synchronous method)
+ 
 *Policy-based deep RL*:
+
  * A3C
+ 
 *Multi-agent deep RL*:
+
  * Multi-agent A3C
  * Multi-agent A3C with communication map
+ 
 *Multi-objective RL/deep RL*:
+
  * Q-Learning
  * Multi-objective Q-Learning (linear and non-linear method)
  * Multi-objective DQN (linear and non-linear method)
  * Multi-objective A3C (linear and non-linear method)
  * Single policy/multi-policy method
  * Hypervolume calculation
+ 
 *Human-agent interaction*
+
  * A3C with map
  * Divide and conquer strategy with DQN
  
@@ -62,7 +72,7 @@ Demonstrations can be found here:
 
 <div align="center">
   <a href="https://www.youtube.com/watch?v=WCa6n1F6UM8" target="_blank">
-    <img src="http://img.youtube.com/vi/WCa6n1F6UM8/1.jpg"
+    <img src="http://img.youtube.com/vi/WCa6n1F6UM8/3.jpg"
          alt="DeepMind Lab - Nav Maze Level 1"
          width="240" height="180" border="10" />
   </a>
