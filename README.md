@@ -72,19 +72,19 @@ Demonstrations can be found here:
 
 <div align="center">
   <a href="https://www.youtube.com/watch?v=WCa6n1F6UM8" target="_blank">
-    <img src="http://img.youtube.com/vi/WCa6n1F6UM8/3.jpg"
+    <img src="fruit/docs/images/screen_1.jpg"
          alt="Fruit API - Tank Battle"
-         width="240" height="180" border="10" />
+         width="240" height="240" border="10" />
   </a>
   <a href="https://www.youtube.com/watch?v=eoud2D0nW1k" target="_blank">
-    <img src="http://img.youtube.com/vi/eoud2D0nW1k/0.jpg"
+    <img src="fruit/docs/images/screen_2.jpg"
          alt="Fruit API - Milk Factory"
-         width="240" height="180" border="10" />
+         width="240" height="240" border="10" />
   </a>
   <a href="https://www.youtube.com/watch?v=usJP9Gr9nkM" target="_blank">
-    <img src="http://img.youtube.com/vi/usJP9Gr9nkM/0.jpg"
-         alt="DeepMind Lab - Laser Tag Space Bounce Level (Hard)"
-         width="240" height="180" border="10" />
+    <img src="fruit/docs/images/screen_3.jpg"
+         alt="Fruit API - Food Collector"
+         width="240" height="240" border="10" />
   </a>
   <br /><br />
 </div>
