@@ -1,6 +1,6 @@
 ![Logo](./fruit/docs/images/home-logo.png)
 
-## Introduction
+# INTRODUCTION
 
 **Fruit API** is a universal deep reinforcement learning framework, which is designed 
 meticulously to provide a friendly user interface. Specifically, **Fruit API** has the 
@@ -99,8 +99,8 @@ Video demonstrations can be found here (click on the images):
   <br /><br />
 </div>
  
-## Documentation
+# DOCUMENTATION
 
-## Acknowledgement
+# ACKNOWLEDGEMENT
 
-## References
+# REFERENCES
