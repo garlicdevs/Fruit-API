@@ -101,7 +101,7 @@ Video demonstrations can be found here (click on the images):
  
 # Documentation
 
-1. [Instalation guide](http://fruitlab.org/installation_2.html)
+1. [Installation guide](http://fruitlab.org/installation_2.html)
 
 2. [Quick start](http://fruitlab.org/examples.html)
 
