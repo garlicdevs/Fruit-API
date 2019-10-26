@@ -99,7 +99,15 @@ Video demonstrations can be found here (click on the images):
   <br /><br />
 </div>
  
-# Quick Start
+# Documentation
+
+1. [Instalation guide]
+
+2. [Quick start]
+
+3. [API reference]
+
+Please visit our official website [here](http://fruitlab.org/) for more updates, tutorials, sample codes, etc.
 
 # References
 
@@ -108,7 +116,7 @@ the development of **Fruit API**.
 
 # Credit
 
-Please cite our work in your papers or projects as follows.
+Please cite our work in your papers or projects as follows. All contributions to the work are welcome.
 
 ```bibtex
 @misc{nguyen2019fruitapi,
