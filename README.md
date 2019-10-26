@@ -1,9 +1,9 @@
 ![Logo](./fruit/docs/images/home-logo.png)
 
-# INTRODUCTION
+# Introduction
 
 **Fruit API** is a universal deep reinforcement learning framework, which is designed 
-meticulously to provide a friendly user interface. Specifically, **Fruit API** has the 
+meticulously to provide a *friendly* user interface. Specifically, **Fruit API** has the 
 following noticeable contributions:
 
 
@@ -12,7 +12,7 @@ to provide a solid foundation and an easy-to-use user interface via a simplified
 API. Based on the design, our ultimate goal is to provide researchers a means to 
 develop reinforcement learning (RL) algorithms with little effort. In particular, 
 it is possible to develop a new RL algorithm under 100 lines of code. What users 
-need is to create a `Config`, a `Learner`, and plug them into the framework. We
+need to do is to create a `Config`, a `Learner`, and plug them into the framework. We
 also provides a lot of sample `Config`s and `Learner`s in a hierarchical structure
 so that users can inherit a suitable one.
 
@@ -21,23 +21,23 @@ so that users can inherit a suitable one.
 * **Portability**: The framework can work properly in different operating systems such as 
 Windows, Linux, and Mac OS.
 
-* **Interoperability**: We keep in mind that the framework should work with any deep learning
+* **Interoperability**: We keep in mind that **Fruit API** should work with any deep learning
 libraries such as PyTorch, Tensorflow, Keras, etc. Researchers would define the neural 
 network architecture in the config file by using their favourite libraries. Instead of 
-implementing a lot of deep RL algorithms, we provide a flexible way to integrate with 
+implementing a lot of deep RL algorithms, we provide a flexible way to integrate 
 existing deep RL libraries.
 
 * **Generality**: The framework supports different disciplines in reinforement learning 
-such as: multiple objectives, multiple agents, and human-machine interaction.
+such as multiple objectives, multiple agents, and human-agent interaction.
 
-We implemented a set of deep RL baselines in different disciplines as sample references:
+We also implemented a set of deep RL baselines in different RL disciplines as follows.
 
 *Value-based deep RL*:
 
  * Deep Q-Network (DQN)
  * Double DQN
- * Duel DQN
- * Prioritized Experience Replay (Proportional-based approach)
+ * Dueling network with DQN
+ * Prioritized Experience Replay (proportional approach)
  * DQN variants (asynchronous/synchronous method)
  
 *Policy-based deep RL*:
@@ -55,8 +55,8 @@ We implemented a set of deep RL baselines in different disciplines as sample ref
  * Multi-objective Q-Learning (linear and non-linear method)
  * Multi-objective DQN (linear and non-linear method)
  * Multi-objective A3C (linear and non-linear method)
- * Single policy/multi-policy method
- * Hypervolume calculation
+ * Single-policy/multi-policy method
+ * Hypervolume
  
 *Human-agent interaction*
 
@@ -66,10 +66,10 @@ We implemented a set of deep RL baselines in different disciplines as sample ref
 *Built-in environments*
 
  * Arcade learning environment (Atari games)
- * Gym
+ * OpenAI Gym
  
 External environments can be integrated into the framework easily by plugging into 
-`FruitEnvironment`. Finally, we developed 5 environments as a testbed to examine different 
+`FruitEnvironment`. Finally, we developed 5 extra environments as a testbed to examine different 
 disciplines in deep RL:
 
 * Mountain car (multi-objective environment/graphical support)
@@ -99,8 +99,29 @@ Video demonstrations can be found here (click on the images):
   <br /><br />
 </div>
  
-# DOCUMENTATION
+# Quick Start
 
-# ACKNOWLEDGEMENT
+# References
 
-# REFERENCES
+[ReinforcePy](https://github.com/Islandman93/reinforcepy) is a great repository that we referenced during
+the development of **Fruit API**.
+
+# Credit
+
+Please cite our work in your papers or projects as follows.
+
+```bibtex
+@misc{nguyen2019fruitapi,
+    author = {Ngoc Duy Nguyen and Thanh Thi Nguyen},
+    title = {fruit-api},
+    year = {2019},
+    publisher = {GitHub},
+    journal = {GitHub repository},
+    howpublished = {\url{https://github.com/garlicdevs/Fruit-API}},
+}
+```
+
+
+
+
+
