@@ -121,7 +121,7 @@ Please cite our work in your papers or projects as follows. All contributions to
 ```bibtex
 @misc{nguyen2019fruitapi,
     author = {{Nguyen}, N.~D. and {Nguyen}, T.~T.},
-    title = {fruit-api},
+    title = {Fruit API - A Universal Deep Reinforcement Learning Framework},
     year = {2019},
     publisher = {GitHub},
     journal = {GitHub repository},
