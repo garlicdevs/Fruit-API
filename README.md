@@ -101,11 +101,11 @@ Video demonstrations can be found here (click on the images):
  
 # Documentation
 
-1. [Instalation guide]
+1. [Instalation guide](http://fruitlab.org/installation_2.html)
 
-2. [Quick start]
+2. [Quick start](http://fruitlab.org/examples.html)
 
-3. [API reference]
+3. [API reference](http://fruitlab.org/api.html)
 
 Please visit our official website [here](http://fruitlab.org/) for more updates, tutorials, sample codes, etc.
 
@@ -120,7 +120,7 @@ Please cite our work in your papers or projects as follows. All contributions to
 
 ```bibtex
 @misc{nguyen2019fruitapi,
-    author = {Ngoc Duy Nguyen and Thanh Thi Nguyen},
+    author = {{Nguyen}, N.~D. and {Nguyen}, T.~T.},
     title = {fruit-api},
     year = {2019},
     publisher = {GitHub},
