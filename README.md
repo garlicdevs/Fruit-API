@@ -2,10 +2,10 @@
 
 # Introduction
 
-**Fruit API** (http://fruitlab.org/) is a universal deep reinforcement learning framework, which is designed 
-meticulously to provide a *friendly* user interface. Specifically, **Fruit API** has the 
-following noticeable contributions:
-
+**Fruit API** (http://fruitlab.org/) is a universal deep reinforcement learning framework, 
+which is designed meticulously to provide a *friendly* user interface, fast algorithm 
+prototyping, and a multi-purpose framework for RL research community. Specifically, 
+**Fruit API** has the following noticeable contributions:
 
 * **Friendly API**: **Fruit API** follows a modular design combined with the OOP in Python
 to provide a solid foundation and an easy-to-use user interface via a simplified 
