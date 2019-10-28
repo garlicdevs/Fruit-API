@@ -3,6 +3,16 @@ from fruit.networks.manager import LayerManager
 
 
 class Config(object):
+    """
+    A configuration of a network. A user-defined config should be a subclass of ``Config``.
+
+    :param environment: a subclass of BaseEnvironment
+    :param initial_learning_rate: learning rate
+    :param history_length: the number of historical states as a single state
+    :param debug_mode: enable this flag to print verbose information
+    :param gamma: is the discounted factor
+    :param optimizer: can be retrieved from OptimizerFactory
+    """
     def __init__(self, environment, initial_learning_rate=0.004, history_length=4,
                  debug_mode=False, gamma=0.99, optimizer=None):
         self.env = environment
@@ -56,10 +66,23 @@ class Config(object):
 
     # User defined
     def predict(self, session, state):
+        """
+        Evaluate the network by using the specified state.
+
+        :param session: current session id (from Tensorflow)
+        :param state: input state
+        """
         pass
 
     # User defined
     def train(self, session, data_dict):
+        """
+        Train the network
+
+        :param session: current session id (from Tensorflow)
+        :param data_dict: data sent by the learner (states, next states, rewards, is_terminal, etc.),
+        which is defined by users
+        """
         pass
 
     def get_params(self, data_dict):

@@ -35,6 +35,11 @@ class BaseAgent(object):
         return self.log_dir
 
     def train(self):
+        """
+        Train the agent to learn the environment
+
+        :return: reward distribution during the training
+        """
         if self.thread_pool is None or self.thread_host is None:
             raise ValueError("No definition of worker!!")
 
@@ -48,6 +53,11 @@ class BaseAgent(object):
         return reward_list
 
     def evaluate(self):
+        """
+        Evaluate the agent by using a trained model
+
+        :return: reward distribution during the training
+        """
         if self.thread_pool is None or self.thread_host is None:
             raise ValueError("No definition of worker!!")
 

@@ -6,6 +6,9 @@ import numpy as np
 
 
 class Learner(threading.Thread):
+    """
+    Users should define an RL algorithm that is a subclass of Learner.
+    """
     def __init__(self, agent, name, environment, network, global_dict, report_frequency=1):
         super().__init__()
 
@@ -56,6 +59,11 @@ class Learner(threading.Thread):
         }
 
     def run_episode(self):
+        """
+        Run an episode
+
+        :return: a total reward of the episode
+        """
         self.environment.reset()
         self.reset()
 
