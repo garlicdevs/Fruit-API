@@ -20,6 +20,10 @@ class RewardProcessor:
 
 
 class FruitEnvironment(BaseEnvironment):
+    """
+    A wrapper of built-in games in Fruit API such as Tank Battle, Food Collector, Milk Factory,
+    Mountain Car, and Deep Sea Treasure. ``FruitEnvironment`` inherits all members of ``BaseEnvironment``.
+    """
     def __init__(self, game_engine, max_episode_steps=10000, state_processor=None, reward_processor=None):
         self.game = game_engine
         self.max_episode_steps = max_episode_steps

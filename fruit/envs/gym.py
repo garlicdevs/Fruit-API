@@ -6,6 +6,9 @@ import numpy as np
 
 
 class GymEnvironment(BaseEnvironment):
+    """
+    A wrapper of OpenAI Gym, which inherits all members of ``BaseEnvironment``.
+    """
     def __init__(self, env_name, state_processor=AtariProcessor()):
         self.env = gym.make(env_name)
         self.env_name = env_name

@@ -7,7 +7,7 @@ import numpy as np
 
 class Learner(threading.Thread):
     """
-    Users should define an RL algorithm that is a subclass of Learner.
+    ``Learner`` represents an RL/deep RL algorithm.
     """
     def __init__(self, agent, name, environment, network, global_dict, report_frequency=1):
         super().__init__()
@@ -40,6 +40,12 @@ class Learner(threading.Thread):
         self.initialize()
 
     def get_probs(self, state):
+        """
+        Get probability distribution of next actions.
+
+        :param state: a state
+        :return: probability distribution over actions
+        """
         if self.history_length > 1:
             probs = self.network.predict(self.frame_buffer.get_buffer_add_state(state))
         else:
@@ -47,6 +53,9 @@ class Learner(threading.Thread):
         return probs
 
     def initialize(self):
+        """
+        Initialize the current learner.
+        """
         self.data_dict = {
             'states': [],
             'actions': [],
@@ -92,9 +101,15 @@ class Learner(threading.Thread):
         return total_reward
 
     def episode_end(self):
+        """
+        This is a callback function, which is called when an episode ends.
+        """
         pass
 
     def reset(self):
+        """
+        This is a callback function, which is called before or after an episode.
+        """
         self.testing = self.agent.is_testing_mode
 
         if self.network is not None:
@@ -108,6 +123,11 @@ class Learner(threading.Thread):
                 self.frame_buffer.add_state(state)
 
     def report(self, reward):
+        """
+        Print verbose information.
+
+        :param reward: the current reward
+        """
         print(self.name, 'Episode Count:', self.eps_count, 'Episode reward:', reward, 'Steps:',
               self.environment.get_current_steps(), 'Step count:', self.step_count, 'Learning rate:',
               self.global_dict[AgentMonitor.Q_LEARNING_RATE])
@@ -121,6 +141,9 @@ class Learner(threading.Thread):
             self.report(reward)
 
     def run(self):
+        """
+        Start the learner's thread.
+        """
         if self.environment.is_render and _platform == "darwin":
             self._run()
         else:
@@ -128,7 +151,23 @@ class Learner(threading.Thread):
                 self._run()
 
     def update(self, state, action, reward, next_state, terminal):
+        """
+        This is a callback function, which is called for every step.
+
+        :param state: the current state
+        :param action: action
+        :param reward: reward retrieved after using ``action``
+        :param next_state: the next state
+        :param terminal: is it a terminal state or not
+        :return:
+        """
         pass
 
     def get_action(self, state):
+        """
+        Get the current action from the current state.
+
+        :param state: the current state
+        :return: next actions
+        """
         pass

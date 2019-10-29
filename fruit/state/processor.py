@@ -2,22 +2,53 @@ from fruit.utils.image import *
 
 
 class Processor(object):
+    """
+    A state processor, which is used to apply pre-processing into the current state
+    """
     def process(self, obj):
+        """
+        Process the current state
+
+        :param obj: current state
+        :return: processed state
+        """
         pass
 
     def clone(self):
+        """
+        Duplicate itself.
+        """
         pass
 
     def reset(self):
+        """
+        Reset the processor.
+        """
         pass
 
     def get_rewards(self, reward):
+        """
+        Get shaping rewards.
+
+        :param reward: the original reward
+        :return: shaping rewards
+        """
         return reward
 
     def get_number_of_objectives(self):
+        """
+        Get the number of objectives
+
+        :return: the number of objectives
+        """
         return 1
 
     def get_number_of_agents(self):
+        """
+        Get the number of agents
+
+        :return: the number of agents
+        """
         return 1
 
 

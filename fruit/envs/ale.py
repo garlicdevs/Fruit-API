@@ -10,6 +10,9 @@ from fruit.types.priv import Space
 
 
 class ALEEnvironment(BaseEnvironment):
+    """
+    A wrapper of Arcade Learning Environment, which inherits all members of ``BaseEnvironment``.
+    """
     # 63 games
     ADVENTURE = "adventure"
     AIR_RAID = "air_raid"

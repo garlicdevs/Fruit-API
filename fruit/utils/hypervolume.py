@@ -18,6 +18,9 @@ class Front(object):
 
 
 class HVCalculator(object):
+    """
+    Calculates hypervolume, which is used in multi-objective RL.
+    """
     def __init__(self):
         self.max_m = 0  # points
         self.max_n = 0  # objectives

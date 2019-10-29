@@ -11,6 +11,19 @@ from matplotlib import cm
 
 
 class AgentMonitor:
+    """
+    The class is used to monitor the learners and print verbose information during the course of training.
+
+    :param agent: the ``BaseAgent``
+    :param network: the ``PolicyNetwork``
+    :param log_dir: log directory
+    :param save_interval: checkpoints will be saved with ``save_interval``
+    :param max_training_epochs: the maximum number of training epochs
+    :param steps_per_epoch: the maximum number of training steps
+    :param number_of_objectives: the number of objectives
+    :param recent_rewards: the number of recent rewards will report
+    :param idle_time: in second (to avoid taking over CPU)
+    """
     Q_ADD_REWARD = 'add_reward'
     Q_REWARD_LIST = 'reward_list'
     Q_WRITER = 'writer'
@@ -158,6 +171,12 @@ class AgentMonitor:
         return self.shared_dict[AgentMonitor.Q_REWARD_LIST]
 
     def run_epochs(self, learners):
+        """
+        Run all epochs
+
+        :param learners: a set of learners
+        :return: reward distribution during the training
+        """
         threads = []
         st = time.time()
 

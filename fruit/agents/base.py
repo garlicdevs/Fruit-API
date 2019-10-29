@@ -4,6 +4,19 @@ import platform
 
 
 class BaseAgent(object):
+    """
+    ``BaseAgent`` contains two entities: an ``AgentMonitor`` and a set of user-defined learners. It provides
+    a unique interface, which is called by the user's program.
+
+    :param network: a reference to the ``PolicyNetwork``
+    :param environment: a reference to the environment
+    :param num_of_threads: the number of learners used in this agent
+    :param num_of_epochs: the number of training epochs
+    :param steps_per_epoch: the number of training steps per epoch
+    :param log_dir: checkpoints will be saved in this directory
+    :param report_frequency: each learner will report a debug message with ``report_frequency``
+    :param save_frequency: checkpoints will be saved for every ``save_frequency``
+    """
     def __init__(self, network, environment, num_of_threads=1, num_of_epochs=100, steps_per_epoch=1e6,
                  log_dir="./log/", report_frequency=1, save_frequency=5e4):
         self.network = network
@@ -29,9 +42,19 @@ class BaseAgent(object):
                                         )
 
     def set_learners(self, learners):
+        """
+        Assign a set of user-defined learners into the agent.
+
+        :param learners: user-defined learners
+        """
         self.thread_pool = learners
 
     def get_log_dir(self):
+        """
+        Get log directory.
+
+        :return: log directory
+        """
         return self.log_dir
 
     def train(self):
@@ -54,9 +77,9 @@ class BaseAgent(object):
 
     def evaluate(self):
         """
-        Evaluate the agent by using a trained model
+        Evaluate the agent by loading a trained model, which is defined in the ``PolicyNetwork``.
 
-        :return: reward distribution during the training
+        :return: reward distribution during the testing
         """
         if self.thread_pool is None or self.thread_host is None:
             raise ValueError("No definition of worker!!")

@@ -3,6 +3,9 @@ import collections as cl
 
 
 class SyncExperience(object):
+    """
+    A holder that includes current state, action, reward, and terminal.
+    """
     def __init__(self, state, action, reward, terminal):
         self.state = state
         self.action = action
@@ -12,10 +15,13 @@ class SyncExperience(object):
 
 class SyncExperienceReplay(object):
     """
-        SyncExperienceReplay class is used to store history episodes
-        Data in SyncExperienceReplay are then randomly selected to feed the training process
-        via helper function get_mini_batch()
-        This class is NOT thread safe but better than Async version in terms of memory usage
+    SyncExperienceReplay class is used to store history episodes
+    Data in SyncExperienceReplay are then randomly selected to feed the training process
+    via helper function get_mini_batch()
+    This class is NOT thread safe but better than Async version in terms of memory usage
+
+    :param size: the maximum size of the experience replay
+    :param state_history: the number of historical states
     """
     def __init__(self, size=1000000, state_history=4):
         if size <= state_history:
@@ -40,6 +46,15 @@ class SyncExperienceReplay(object):
         self.mini_batch_next_states = []
 
     def append(self, state, action, reward, next_state, terminal):
+        """
+        Append an experience to the replay.
+
+        :param state: current state
+        :param action: current action
+        :param reward: reward after executing the action
+        :param next_state: the next state
+        :param terminal: terminal state or not
+        """
         insert_index = (self.start_index + self.current_size) % self.max_size
 
         current_exp = self.experiences[insert_index]
@@ -59,6 +74,12 @@ class SyncExperienceReplay(object):
             self.states[insert_index] = state
 
     def get_state(self, index):
+        """
+        Get a state in replay memory, given an ``index``
+
+        :param index: the index of the replay
+        :return: the state at ``index`` of the replay
+        """
         if self.current_size < self.max_size:
             i = index - self.state_history + 1
             if i < 0:
@@ -78,6 +99,12 @@ class SyncExperienceReplay(object):
         return s
 
     def get_mini_batch(self, batch_size):
+        """
+        Get a mini batch
+
+        :param batch_size: the batch size
+        :return: a list of rewards, actions, rewards, next states, and terminals
+        """
         if batch_size > self.current_size:
             raise ValueError("Batch size could not be greater than experience replay size")
         self.__reset()
@@ -109,6 +136,9 @@ class SyncExperienceReplay(object):
 
 
 class AsyncExperience(object):
+    """
+    A holder that includes current state, action, reward, and terminal.
+    """
     def __init__(self, state, action, reward, next_state, terminal):
         self.state = state
         self.action = action
@@ -119,18 +149,33 @@ class AsyncExperience(object):
 
 class AsyncExperienceReplay(object):
     """
-        AsyncExperienceReplay class is used to store history episodes
-        Data in AsyncExperienceReplay are then randomly selected to feed the training process
-        via helper function get_mini_batch()
-        This class is thread safe and implement in a lazy style
+    AsyncExperienceReplay class is used to store history episodes
+    Data in AsyncExperienceReplay are then randomly selected to feed the training process
+    via helper function get_mini_batch()
+    This class is thread safe and implement in a lazy style
     """
     def __init__(self, size=1000000):
         self.experiences = cl.deque(maxlen=size)
 
     def append(self, state, action, reward, next_state, terminal):
+        """
+        Append an experience to the replay.
+
+        :param state: current state
+        :param action: current action
+        :param reward: reward after executing the action
+        :param next_state: the next state
+        :param terminal: terminal state or not
+        """
         self.experiences.append(AsyncExperience(state, action, reward, next_state, terminal))
 
     def get_mini_batch(self, batch_size):
+        """
+        Get a mini batch
+
+        :param batch_size: the batch size
+        :return: a list of rewards, actions, rewards, next states, and terminals
+        """
         state, action, reward, next_state, terminal = [], [], [], [], []
         last_element_index = len(self.experiences)-1
         rands = np.random.randint(0, last_element_index, batch_size)
