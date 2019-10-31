@@ -105,7 +105,7 @@ Video demonstrations can be found here (click on the images):
 
 2. [Quick start](http://fruitlab.org/examples.html)
 
-3. [API reference](http://fruitlab.org/api.html)
+3. [API reference](fruit/docs/_build/latex/fruitapi.pdf)
 
 Please visit our official website [here](http://fruitlab.org/) for more updates, tutorials, sample codes, etc.
 
