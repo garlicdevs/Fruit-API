@@ -1,3 +1,4 @@
+from fruit.envs.games.engine import BaseEngine
 from fruit.envs.games.grid_world.constants import GlobalConstants
 from fruit.envs.games.grid_world.manager import ResourceManager
 from fruit.envs.games.grid_world.sprites import CharacterSprite
@@ -13,7 +14,7 @@ import collections as cl
 # https://opengameart.org/content/lpc-farming-tilesets-magic-animations-and-ui-elements
 
 
-class GridWorld(object):
+class GridWorld(BaseEngine):
     def __init__(self, render=False, speed=60, max_frames=100000, frame_skip=1, graphical_state=True,
                  seed=None, num_of_obstacles=2, number_of_rows=4, number_of_columns=4, debug=False, stage=0,
                  agent_start_x=0, agent_start_y=0):
@@ -83,8 +84,7 @@ class GridWorld(object):
         # Render the first frame
         self.__render()
 
-    @staticmethod
-    def get_game_name():
+    def get_game_name(self):
         return "GRID WORLD"
 
     def clone(self):
@@ -112,7 +112,7 @@ class GridWorld(object):
         pygame.init()
 
         if self.rd:
-            pygame.display.set_caption(GridWorld.get_game_name())
+            pygame.display.set_caption(self.get_game_name())
             self.screen = pygame.display.set_mode((self.screen_width, self.screen_height + int(self.tile_size/2)))
         else:
             self.screen = pygame.Surface((self.screen_width, self.screen_height + int(self.tile_size/2)))
@@ -343,14 +343,13 @@ class GridWorld(object):
     def is_render(self):
         return self.rd
 
-    @staticmethod
-    def get_num_of_agents():
+    def get_num_of_agents(self):
         return 1
 
 
 if __name__ == '__main__':
-    game = GridWorld(render=True, frame_skip=1, num_of_obstacles=2, graphical_state=False, stage=1,
-                     number_of_rows=8, number_of_columns=9, speed=1, seed=100, agent_start_x=2, agent_start_y=2)
+    game = GridWorld(render=True, frame_skip=1, num_of_obstacles=15, graphical_state=False, stage=0,
+                     number_of_rows=8, number_of_columns=9, speed=1, seed=100, agent_start_x=0, agent_start_y=0)
     num_of_actions = game.get_num_of_actions()
     game.reset()
     state = game.get_state()
