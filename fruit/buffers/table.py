@@ -24,6 +24,8 @@ class LookupTable(object):
         self.errors = [0.] * self.num_of_objs
 
     def calculate_td_errors(self, action, prev_state, greedy_action, new_state, gamma, reward):
+        if not isinstance(reward, (list, tuple, np.ndarray)):
+            reward = [reward]
         for i in range(self.num_of_objs):
             values = self.value_function[i]
             current_q_values = values[action][prev_state]
@@ -34,12 +36,14 @@ class LookupTable(object):
             self.errors[i] = err
 
     def calculate_terminal_td_errors(self, action, prev_state, gamma, reward):
+        if not isinstance(reward, (list, tuple, np.ndarray)):
+            reward = [reward]
         for i in range(self.num_of_objs):
             values = self.value_function[i]
             current_q_values = values[action][prev_state]
             self.errors[i] = reward[i] - current_q_values
 
-    def update(self, action, state, lamb, alpha):
+    def update_td_errors(self, action, state, lamb, alpha):
         for i in range(self.num_of_objs):
             values = self.value_function[i]
             current_q_values = values[action][state]
@@ -56,7 +60,16 @@ class LookupTable(object):
         result = [0.]*self.num_of_objs
         for i in range(self.num_of_objs):
             result[i] = self.value_function[i][action][state]
-        return result
+        if self.num_of_objs == 1:
+            return result[0]
+        else:
+            return result
+
+    def set_q_values(self, action, state, value):
+        if not isinstance(value, (list, tuple, np.ndarray)):
+            value = [value]
+        for i in range(self.num_of_objs):
+            self.value_function[i][action][state] = value[i]
 
     def print_values(self):
         for i in range(self.num_of_objs):

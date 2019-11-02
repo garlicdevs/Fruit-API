@@ -69,9 +69,11 @@ We also implemented a set of deep RL baselines in different RL disciplines as fo
  * OpenAI Gym
  
 External environments can be integrated into the framework easily by plugging into 
-`FruitEnvironment`. Finally, we developed 5 extra environments as a testbed to examine different 
+`FruitEnvironment`. Finally, we developed extra environments as a testbed to examine different
 disciplines in deep RL:
 
+* Grid World (graphical support)
+* Puddle World (graphical support)
 * Mountain car (multi-objective environment/graphical support)
 * Deep sea treasure (multi-objective environment/graphical support)
 * Tank battle (multi-agent/multi-objective/human-agent cooperation environment)

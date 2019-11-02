@@ -13,7 +13,7 @@ class MOQLearner(Learner):
                  batch_size=5, discounted_factor=0.9, learning_rate=0.9, traces_factor=0.9,
                  epsilon_annealing_start=0.9, epsilon_annealing_end=0,
                  load_model_path=None, thresholds=None, target_reward=None, is_linear=False,
-                 using_e_greedy=True, async_update_steps=1
+                 using_e_greedy=True, async_update_steps=1,
                  ):
         super().__init__(agent=agent, name=name, environment=environment, network=network, global_dict=global_dict,
                          report_frequency=report_frequency)
@@ -50,6 +50,8 @@ class MOQLearner(Learner):
         self.current_learning_rate = learning_rate
         self.current_epsilon = epsilon_annealing_start
         self.converged = False
+        if self.load_model_path is not None:
+            self.load_model()
 
     @staticmethod
     def get_default_number_of_learners():
@@ -107,6 +109,6 @@ class MOQLearner(Learner):
                     self.table.calculate_td_errors(action, state, greedy, next_state, self.discounted_factor, reward)
                 else:
                     self.table.calculate_terminal_td_errors(action, state, self.discounted_factor, reward)
-                self.table.update(action, state, 1.0, self.current_learning_rate)
+                self.table.update_td_errors(action, state, 1.0, self.current_learning_rate)
 
                 self.current_epsilon = self.epsilon_annealer.anneal(self.global_dict[AgentMonitor.Q_GLOBAL_STEPS])
