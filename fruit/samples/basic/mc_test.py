@@ -5,7 +5,7 @@ from fruit.learners.mc import MCLearner
 
 
 def train_mc_grid_world():
-    engine = GridWorld(render=False, frame_skip=1, graphical_state=False, stage=1,
+    engine = GridWorld(render=False, graphical_state=False, stage=1,
                        number_of_rows=8, number_of_columns=9, speed=1000, seed=100, agent_start_x=2, agent_start_y=2)
 
     environment = FruitEnvironment(game_engine=engine)
@@ -18,7 +18,7 @@ def train_mc_grid_world():
 
 
 def eval_mc_grid_world():
-    engine = GridWorld(render=True, frame_skip=1, graphical_state=False, stage=1,
+    engine = GridWorld(render=True, graphical_state=False, stage=1,
                        number_of_rows=8, number_of_columns=9, speed=2, seed=100, agent_start_x=2, agent_start_y=2)
 
     environment = FruitEnvironment(game_engine=engine)

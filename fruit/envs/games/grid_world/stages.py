@@ -33,7 +33,7 @@ class StageMap(object):
         #########################################################################
         #########################################################################
         # STAGE 1
-        # Create a dynamic graph
+        # Create a dynamic map
 
         obs = random.sample(range(1, self.num_of_rows * self.num_of_columns - 1), self.num_of_obstacles)
         self.map[0] = [[-1 for _ in range(self.num_of_columns)] for _ in range(self.num_of_rows)]
@@ -46,7 +46,7 @@ class StageMap(object):
 
         #########################################################################
         # STAGE 2
-        # Create a static graph
+        # Create a static map
         self.map[1] = [[-1, -1,  1,  2, -1, -1, -1, -1, -1],
                        [-1,  0,  0,  0,  0,  0,  0,  0, -1],
                        [-1,  0, -1, -1, -1, -1, -1,  0, -1],

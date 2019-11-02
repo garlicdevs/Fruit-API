@@ -15,7 +15,7 @@ import collections as cl
 
 
 class GridWorld(BaseEngine):
-    def __init__(self, render=False, speed=60, max_frames=100000, frame_skip=1, graphical_state=True,
+    def __init__(self, render=False, speed=60, max_frames=100000, graphical_state=True,
                  seed=None, num_of_obstacles=2, number_of_rows=4, number_of_columns=4, debug=False, stage=0,
                  agent_start_x=0, agent_start_y=0):
 
@@ -54,9 +54,8 @@ class GridWorld(BaseEngine):
         self.current_buffer = np.array([[[0, 0, 0] for _ in range(self.screen_height + int(self.tile_size/2))]
                                         for _ in range(self.screen_width)])
         self.frame_speed = 0
-        self.frame_skip = frame_skip
+        self.frame_skip = 1
         self.started_time = Utils.get_current_time()
-        self.next_rewards = cl.deque(maxlen=100)
         self.num_of_objs = 1
         self.steps = 0
         self.rewards = cl.deque(maxlen=100)
@@ -93,7 +92,7 @@ class GridWorld(BaseEngine):
         else:
             seed = self.seed
 
-        return GridWorld(render=self.rd, speed=self.speed, max_frames=self.max_frames, frame_skip=self.frame_skip,
+        return GridWorld(render=self.rd, speed=self.speed, max_frames=self.max_frames,
                          graphical_state=self.graphical_state, seed=seed, num_of_obstacles=self.num_of_obstacles,
                          number_of_rows=self.num_of_rows, number_of_columns=self.num_of_columns, debug=self.is_debug,
                          stage=self.current_stage, agent_start_x=self.agent_start_x, agent_start_y=self.agent_start_y)
@@ -348,8 +347,8 @@ class GridWorld(BaseEngine):
 
 
 if __name__ == '__main__':
-    game = GridWorld(render=True, frame_skip=1, num_of_obstacles=15, graphical_state=False, stage=0,
-                     number_of_rows=8, number_of_columns=9, speed=1, seed=100, agent_start_x=0, agent_start_y=0)
+    game = GridWorld(render=True, num_of_obstacles=15, graphical_state=False, stage=0,
+                     number_of_rows=8, number_of_columns=9, speed=10, seed=100, agent_start_x=0, agent_start_y=0)
     num_of_actions = game.get_num_of_actions()
     game.reset()
     state = game.get_state()
