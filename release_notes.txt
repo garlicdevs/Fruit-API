@@ -1,3 +1,8 @@
-Version 1.0.0b
-============================
-Initial version of Fruit API
+Version 1.0.0b --- 30-Oct-2019
+================================
++ Initial version of Fruit API
+
+
+Version 1.0.1b --- 4-Nov-2019
+================================
++ Add DeepMind Lab environment
