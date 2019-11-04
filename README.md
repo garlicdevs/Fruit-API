@@ -11,7 +11,7 @@ prototyping, and a multi-purpose framework for RL research community. Specifical
 to provide a solid foundation and an easy-to-use user interface via a simplified 
 API. Based on the design, our ultimate goal is to provide researchers a means to 
 develop reinforcement learning (RL) algorithms with little effort. In particular, 
-it is possible to develop a new RL algorithm under 100 lines of code. What users 
+it is possible to develop a new RL algorithm under 100 lines of code. What we
 need to do is to create a `Config`, a `Learner`, and plug them into the framework. We
 also provides a lot of sample `Config`s and `Learner`s in a hierarchical structure
 so that users can inherit a suitable one.
@@ -27,10 +27,15 @@ network architecture in the config file by using their favourite libraries. Inst
 implementing a lot of deep RL algorithms, we provide a flexible way to integrate 
 existing deep RL libraries.
 
-* **Generality**: The framework supports different disciplines in reinforement learning 
+* **Generality**: The framework supports different disciplines in RL
 such as multiple objectives, multiple agents, and human-agent interaction.
 
 We also implemented a set of deep RL baselines in different RL disciplines as follows.
+
+*RL baselines*:
+
+ * Q-Learning
+ * Monte-Carlo
 
 *Value-based deep RL*:
 
@@ -51,7 +56,6 @@ We also implemented a set of deep RL baselines in different RL disciplines as fo
  
 *Multi-objective RL/deep RL*:
 
- * Q-Learning
  * Multi-objective Q-Learning (linear and non-linear method)
  * Multi-objective DQN (linear and non-linear method)
  * Multi-objective A3C (linear and non-linear method)
@@ -67,6 +71,7 @@ We also implemented a set of deep RL baselines in different RL disciplines as fo
 
  * Arcade learning environment (Atari games)
  * OpenAI Gym
+ * DeepMind
  
 External environments can be integrated into the framework easily by plugging into 
 `FruitEnvironment`. Finally, we developed extra environments as a testbed to examine different
