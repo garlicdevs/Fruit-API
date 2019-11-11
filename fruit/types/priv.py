@@ -55,10 +55,10 @@ class Space(object):
 
     def get_range(self):
         if self.__discrete:
-            if isinstance(self.__min_value, int):
+            if isinstance(self.__min_value, (int, bool)):
                 return [i for i in range(self.__min_value, self.__max_value + 1)], True
             else:
-                return [self.__min_value, self.__max_value], False
+                return [self.__min_value, self.__max_value], True
         else:
             return [self.__min_value, self.__max_value], False
 

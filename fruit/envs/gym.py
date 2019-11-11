@@ -13,7 +13,10 @@ class GymEnvironment(BaseEnvironment):
         self.env = gym.make(env_name)
         self.env_name = env_name
         self.atari = GymEnvironment._is_atari(env_name)
-        self.processor = state_processor
+        if self.atari:
+            self.processor = state_processor
+        else:
+            self.processor = None
         self.cur_steps = 0
         self.current_state = None
         self.terminal = False
@@ -103,3 +106,6 @@ class GymEnvironment(BaseEnvironment):
 
     def get_number_of_agents(self):
         return 1
+
+    def get_processor(self):
+        return self.processor

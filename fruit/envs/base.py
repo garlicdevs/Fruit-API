@@ -110,3 +110,11 @@ class BaseEnvironment(object):
         :return: the number of agents
         """
         pass
+
+    def get_processor(self):
+        """
+        Get state processor
+
+        :return: state processor
+        """
+        return None

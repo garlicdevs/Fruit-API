@@ -71,8 +71,17 @@ We also implemented a set of deep RL baselines in different RL disciplines as fo
 
  * Arcade learning environment (Atari games)
  * OpenAI Gym
- * DeepMind
- 
+ * DeepMind Lab
+ * Carla (self-driving car environment)
+ * TensorForce's environments (by using TensorForcePlugin):
+    * OpenAI Retro
+    * DeepMind Pycolab
+    * Unreal Engine
+    * Maze Explorer
+    * Robotics - OpenSim
+    * Pygame Learning Environment
+    * ViZDoom
+
 External environments can be integrated into the framework easily by plugging into 
 `FruitEnvironment`. Finally, we developed extra environments as a testbed to examine different
 disciplines in deep RL:

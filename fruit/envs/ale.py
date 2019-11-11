@@ -148,7 +148,7 @@ class ALEEnvironment(BaseEnvironment):
         else:
             self.__dis_act = disable_actions
 
-        if self.__processor.get_number_of_objectives() > 1:
+        if self.__processor is not None and self.__processor.get_number_of_objectives() > 1:
             self.__multi_objs = True
         else:
             self.__multi_objs = False
@@ -222,7 +222,8 @@ class ALEEnvironment(BaseEnvironment):
         self.__current_steps = 0
 
         # Reset processor
-        self.__processor.reset()
+        if self.__processor is not None:
+            self.__processor.reset()
 
         return self.get_state()
 
@@ -241,9 +242,12 @@ class ALEEnvironment(BaseEnvironment):
 
             self.__is_terminal = self.__ale.game_over()
 
-            self.__prev_state = self.__processor.process(self.__prev_buffer)
-
-            self.__current_state = self.__processor.process(self.__current_buffer)
+            if self.__processor is not None:
+                self.__prev_state = self.__processor.process(self.__prev_buffer)
+                self.__current_state = self.__processor.process(self.__current_buffer)
+            else:
+                self.__prev_state = self.__prev_buffer
+                self.__current_state = self.__current_buffer
 
             self.__current_state = np.maximum.reduce([self.__prev_state, self.__current_state])
         else:
