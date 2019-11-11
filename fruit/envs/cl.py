@@ -241,7 +241,7 @@ def get_random_action(is_discrete, action_range, action_space):
 
 
 def create_random_agent():
-    fruit_env = CarlaEnvironment(render=True)
+    fruit_env = CarlaEnvironment(render=True, autopilot=False)
 
     state_space = fruit_env.get_state_space()
     if isinstance(state_space, tuple):
