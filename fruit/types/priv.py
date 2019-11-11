@@ -1,5 +1,4 @@
 import numpy as np
-import gym
 
 
 class Space(object):
@@ -81,6 +80,7 @@ class Space(object):
 
 
 def __unit_test():
+    import gym
     env = gym.make("CartPole-v0")
 
     a = Space.convert_openai_space(env.observation_space)

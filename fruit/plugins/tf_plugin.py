@@ -298,7 +298,7 @@ def compatible_2():
     env = TFEnvironment(fruit_environment=fruit_env)
     print(env.states())
     print(env.actions())
-    print(env.get_states())
+    print(env.getrobotics_states())
     print(env.execute(0))
     print(env.max_episode_timesteps())
     print('+++++++++++++++++++++++++++++++++++++++++++++++++')
@@ -312,7 +312,7 @@ def get_random_action(is_discrete, action_range, action_space):
             action = random.randint(0, len(action_range) - 1)
     else:
         rand = np.random.rand(*tuple(action_space.get_shape()))
-        action = np.multiply(action_range[1] - action_range[0], rand) - action_range[1]
+        action = np.multiply(action_range[1] - action_range[0], rand) + action_range[0]
     return action
 
 
@@ -343,7 +343,7 @@ def create_random_agent(env):
             action = []
             for s in action_space:
                 action_range, is_discrete = s.get_range()
-                action.append(get_random_action(is_discrete, action_range, action_space))
+                action.append(get_random_action(is_discrete, action_range, s))
         else:
             action = get_random_action(is_discrete, action_range, action_space)
         print(action)
