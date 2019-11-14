@@ -1,8 +1,8 @@
 
 
 class Plugin(object):
-    def create_learner(self):
+    def get_learner(self):
         pass
 
-    def create_config(self):
+    def get_config(self):
         pass

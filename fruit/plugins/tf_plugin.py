@@ -1,6 +1,10 @@
 import random
 
-from tensorforce.environments.vizdoom import ViZDoom
+from fruit.monitor.monitor import AgentMonitor
+from tensorforce import util
+
+from fruit.learners.base import Learner
+from tensorforce.agents import Agent
 
 from fruit.envs.ale import ALEEnvironment
 from fruit.envs.base import BaseEnvironment
@@ -11,6 +15,7 @@ from tensorforce.environments import Environment, ArcadeLearningEnvironment, Ope
 import numpy as np
 
 
+# The code is written based on TensorForce source code
 class TFEnvironment(Environment):
     def __init__(self, fruit_environment, **kwargs):
         super().__init__()
@@ -54,8 +59,6 @@ class TFEnvironment(Environment):
 
     def close(self):
         self.reset()
-        self.environment.__del__()
-        self.environment = None
 
     def get_states(self):
         state = self.environment.get_state()
@@ -106,7 +109,7 @@ class FTEnvironment(BaseEnvironment):
         self.processor = state_processor
 
     def clone(self):
-        return FTEnvironment(self.environment)
+        return FTEnvironment(self.environment, state_processor=self.processor)
 
     def step(self, actions):
         self.current_state, self.current_terminal, self.current_reward = self.environment.execute(actions)
@@ -216,16 +219,158 @@ class FTEnvironment(BaseEnvironment):
         return self.processor
 
 
-class TensorForcePlugin(Plugin):
-    def __init__(self, agent, environment, **kwargs):
-        self.agent = agent
-        if isinstance(environment, Environment):
-            self.environment = environment
-        elif isinstance(environment, BaseEnvironment):
-            self.environment = self.convert(environment)
+class TensorForceLearner(Learner):
+    def __init__(self, agent, learner, environment, p_network, global_dict, report_frequency,
+                 algorithm, callback=None, callback_episode_frequency=None, callback_timestep_frequency=None,
+                 parallel_interactions=1, num_episodes=None, **kwargs
+                 ):
+        if isinstance(environment, BaseEnvironment):
+            fruit_environment = environment
+            self.tf_environment = TensorForcePlugin.convert(environment)
         else:
-            raise ValueError('{} is not supported !')
+            environment = Environment.create(environment=environment)
+            fruit_environment = TensorForcePlugin.convert(environment)
+            self.tf_environment = environment
 
+        super().__init__(agent=agent, name=learner, environment=fruit_environment, network=p_network,
+                         global_dict=global_dict,
+                         report_frequency=report_frequency)
+        self.algorithm = algorithm
+        self.tf_agent = Agent.create(
+            algorithm, self.tf_environment, **kwargs
+        )
+        if not self.tf_agent.model.is_initialized:
+            self.tf_agent.initialize()
+
+        self.episode_rewards = list()
+        self.episode_timesteps = list()
+        self.episode_seconds = list()
+
+        self.parallel_interactions = parallel_interactions
+        if num_episodes is None:
+            self.num_episodes = float('inf')
+        else:
+            self.num_episodes = num_episodes
+
+        assert callback_episode_frequency is None or callback_timestep_frequency is None
+        if callback_episode_frequency is None and callback_timestep_frequency is None:
+            callback_episode_frequency = 1
+        if callback_episode_frequency is None:
+            self.callback_episode_frequency = float('inf')
+        else:
+            self.callback_episode_frequency = callback_episode_frequency
+        if callback_timestep_frequency is None:
+            self.callback_timestep_frequency = float('inf')
+        else:
+            self.callback_timestep_frequency = callback_timestep_frequency
+        if callback is None:
+            self.callback = (lambda r: True)
+        elif util.is_iterable(x=callback):
+            def sequential_callback(runner):
+                result = True
+                for fn in callback:
+                    x = fn(runner)
+                    if isinstance(result, bool):
+                        result = result and x
+                return result
+
+            self.callback = sequential_callback
+        else:
+            def boolean_callback(runner):
+                result = callback(runner)
+                if isinstance(result, bool):
+                    return result
+                else:
+                    return True
+
+            self.callback = boolean_callback
+
+    def __del__(self):
+        if isinstance(self.tf_agent, Agent):
+            self.tf_agent.close()
+        if isinstance(self.tf_environment, Environment):
+            self.tf_environment.close()
+
+    @staticmethod
+    def get_default_number_of_learners():
+        return 1
+
+    def report(self, reward, mean_horizon=10):
+        mean_reward = float(np.mean(self.episode_rewards[-mean_horizon:]))
+        mean_ts_per_ep = int(np.mean(self.episode_timesteps[-mean_horizon:]))
+        mean_sec_per_ep = float(np.mean(self.episode_seconds[-mean_horizon:]))
+
+        print(self.name, 'Episode Count:', self.eps_count, 'Episode reward:', reward, 'Episode steps:',
+              self.environment.get_current_steps(), 'Total steps:', self.global_dict[AgentMonitor.Q_GLOBAL_STEPS],
+              'Mean reward:', mean_reward, 'Mean steps/episode:', mean_ts_per_ep, 'Mean seconds/episode:',
+              mean_sec_per_ep)
+
+    def reset(self):
+        super().reset()
+        self.tf_agent.reset()
+
+    def episode_end(self, episode_reward, episode_steps, episode_secs):
+        self.episode_rewards.append(episode_reward)
+        self.episode_timesteps.append(episode_steps)
+        self.episode_seconds.append(episode_secs)
+
+        if self.eps_count % self.callback_episode_frequency == 0 and not self.callback(self):
+            return
+
+        if self.num_episodes != float('inf') and self.eps_count != 0 and self.eps_count % self.num_episodes == 0:
+            self.global_dict[AgentMonitor.Q_FINISH] = True
+
+    def get_action(self, state):
+        return self.tf_agent.act(states=state)
+
+    def save_model(self, str):
+        print('Not implemented yet !')
+
+    def update(self, state, action, reward, next_state, terminal):
+        # if self.history_length > 1:
+        #     self.frame_buffer.add_state(state)
+        #
+        # if not self.testing:
+        #     if self.history_length > 1:
+        #         current_s = self.frame_buffer.get_buffer()[0]
+        #         next_s = self.frame_buffer.get_buffer_add_state(next_state)[0]
+        #     else:
+        #         current_s = state
+        #         next_s = next_state
+        #     self.data_dict['states'].append(current_s)
+        #     self.data_dict['actions'].append(action)
+        #     self.data_dict['rewards'].append(reward)
+        #     self.data_dict['next_states'].append(next_s)
+        #     self.data_dict['terminals'].append(terminal)
+
+        self.step_count += 1
+        self.global_dict[AgentMonitor.Q_GLOBAL_STEPS] += 1
+
+        if not self.testing:
+            if self.step_count % self.callback_timestep_frequency == 0:
+                self.callback(self)
+
+            self.tf_agent.observe(terminal=terminal, reward=reward)
+
+            # if self.step_count % self.async_update_steps == 0 or terminal:
+            #     logging = self.global_dict[AgentMonitor.Q_LOGGING]
+            #     self.current_learning_rate = self.learning_rate_annealer.anneal(
+            #         self.global_dict[AgentMonitor.Q_GLOBAL_STEPS])
+            #     self.data_dict['learning_rate'] = self.current_learning_rate
+            #     self.global_dict[AgentMonitor.Q_LEARNING_RATE] = self.current_learning_rate
+            #     if logging:
+            #         self.global_dict[AgentMonitor.Q_LOGGING] = False
+            #         self.data_dict['logging'] = True
+            #         summary = self.network.train_network(self.data_dict)
+            #         self.global_dict[AgentMonitor.Q_WRITER].\
+            #             add_summary(summary, global_step=self.global_dict[AgentMonitor.Q_GLOBAL_STEPS])
+            #     else:
+            #         self.data_dict['logging'] = False
+            #         self.network.train_network(self.data_dict)
+            #     self.reset_batch()
+
+
+class TensorForcePlugin(Plugin):
     @staticmethod
     def convert(environment):
         if isinstance(environment, BaseEnvironment):
@@ -235,11 +380,11 @@ class TensorForcePlugin(Plugin):
         else:
             raise ValueError('Environment is not supported !')
 
-    def create_config(self):
+    def get_config(self):
         pass
 
-    def create_learner(self):
-        pass
+    def get_learner(self):
+        return TensorForceLearner
 
 
 def compatible_1():
@@ -298,7 +443,7 @@ def compatible_2():
     env = TFEnvironment(fruit_environment=fruit_env)
     print(env.states())
     print(env.actions())
-    print(env.getrobotics_states())
+    print(env.get_states())
     print(env.execute(0))
     print(env.max_episode_timesteps())
     print('+++++++++++++++++++++++++++++++++++++++++++++++++')
