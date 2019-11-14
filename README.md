@@ -3,41 +3,42 @@
 # Introduction
 
 **Fruit API** (http://fruitlab.org/) is a universal deep reinforcement learning framework, 
-which is designed meticulously to provide a *friendly* user interface, fast algorithm 
-prototyping, and a multi-purpose framework for RL research community. Specifically, 
+which is designed meticulously to provide a *friendly* user interface, a fast algorithm 
+prototyping tool, and a multi-purpose framework for RL research community. Specifically, 
 **Fruit API** has the following noticeable contributions:
 
 * **Friendly API**: **Fruit API** follows a modular design combined with the OOP in Python
 to provide a solid foundation and an easy-to-use user interface via a simplified 
 API. Based on the design, our ultimate goal is to provide researchers a means to 
 develop reinforcement learning (RL) algorithms with little effort. In particular, 
-it is possible to develop a new RL algorithm under 100 lines of code. What we
+it is possible to develop a new RL algorithm under 100 lines of code. What users 
 need to do is to create a `Config`, a `Learner`, and plug them into the framework. We
 also provides a lot of sample `Config`s and `Learner`s in a hierarchical structure
 so that users can inherit a suitable one.
 
 ![Figure 1](./fruit/docs/images/figure_1.png)
 
-* **Portability**: The framework can work properly in different operating systems such as 
+* **Portability**: The framework can work properly in different operating systems including
 Windows, Linux, and Mac OS.
 
 * **Interoperability**: We keep in mind that **Fruit API** should work with any deep learning
 libraries such as PyTorch, Tensorflow, Keras, etc. Researchers would define the neural 
 network architecture in the config file by using their favourite libraries. Instead of 
 implementing a lot of deep RL algorithms, we provide a flexible way to integrate 
-existing deep RL libraries.
+existing deep RL libraries by introducing plugins. Plugins extract learners from other deep RL 
+libraries and plug into FruitAPI.
 
-* **Generality**: The framework supports different disciplines in RL
+* **Generality**: The framework supports different disciplines in reinforement learning 
 such as multiple objectives, multiple agents, and human-agent interaction.
 
 We also implemented a set of deep RL baselines in different RL disciplines as follows.
 
-*RL baselines*:
-
- * Q-Learning
+*RL baselines*
+ 
  * Monte-Carlo
+ * Q-Learning
 
-*Value-based deep RL*:
+*Value-based deep RL baselines*:
 
  * Deep Q-Network (DQN)
  * Double DQN
@@ -45,7 +46,7 @@ We also implemented a set of deep RL baselines in different RL disciplines as fo
  * Prioritized Experience Replay (proportional approach)
  * DQN variants (asynchronous/synchronous method)
  
-*Policy-based deep RL*:
+*Policy-based deep RL baselines*:
 
  * A3C
  
@@ -56,6 +57,7 @@ We also implemented a set of deep RL baselines in different RL disciplines as fo
  
 *Multi-objective RL/deep RL*:
 
+ * Q-Learning
  * Multi-objective Q-Learning (linear and non-linear method)
  * Multi-objective DQN (linear and non-linear method)
  * Multi-objective A3C (linear and non-linear method)
@@ -67,27 +69,21 @@ We also implemented a set of deep RL baselines in different RL disciplines as fo
  * A3C with map
  * Divide and conquer strategy with DQN
  
+*Plugins*
+
+ * TensorForce plugin (still experimenting). By using TensorForce plugin, it is possible to use all deep RL 
+ algorithms implemented in TensorForce library via FruitAPI such as: PPO, TRPO, VPG, DDPG/DPG.
+ * Other plugins (OpenAI Baselines, RLLab) are coming soon.
+ 
 *Built-in environments*
 
  * Arcade learning environment (Atari games)
  * OpenAI Gym
- * DeepMind Lab
- * Carla (self-driving car environment)
- * TensorForce's environments (by using TensorForcePlugin):
-    * OpenAI Retro
-    * DeepMind Pycolab
-    * Unreal Engine
-    * Maze Explorer
-    * Robotics - OpenSim
-    * Pygame Learning Environment
-    * ViZDoom
-
+ 
 External environments can be integrated into the framework easily by plugging into 
-`FruitEnvironment`. Finally, we developed extra environments as a testbed to examine different
+`FruitEnvironment`. Finally, we developed 5 extra environments as a testbed to examine different 
 disciplines in deep RL:
 
-* Grid World (graphical support)
-* Puddle World (graphical support)
 * Mountain car (multi-objective environment/graphical support)
 * Deep sea treasure (multi-objective environment/graphical support)
 * Tank battle (multi-agent/multi-objective/human-agent cooperation environment)
@@ -121,7 +117,7 @@ Video demonstrations can be found here (click on the images):
 
 2. [Quick start](http://fruitlab.org/examples.html)
 
-3. [API reference](fruit/docs/_build/latex/fruitapi.pdf)
+3. [API reference](http://fruitlab.org/api.html)
 
 Please visit our official website [here](http://fruitlab.org/) for more updates, tutorials, sample codes, etc.
 
@@ -144,8 +140,3 @@ Please cite our work in your papers or projects as follows. All contributions to
     howpublished = {\url{https://github.com/garlicdevs/Fruit-API}},
 }
 ```
-
-
-
-
-
