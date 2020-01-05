@@ -54,7 +54,15 @@ We also implemented a set of deep RL baselines in different RL disciplines as fo
 
  * Multi-agent A3C
  * Multi-agent A3C with communication map
+ 
+*Multi-objective RL/deep RL*:
 
+ * Q-Learning
+ * Multi-objective Q-Learning (linear and non-linear method)
+ * Multi-objective DQN (linear and non-linear method)
+ * Multi-objective A3C (linear and non-linear method)
+ * Single-policy/multi-policy method
+ * Hypervolume
  
 *Human-agent interaction*
 
