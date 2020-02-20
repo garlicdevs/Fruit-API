@@ -1,5 +1,8 @@
 import threading
 from sys import platform as _platform
+
+import time
+
 from fruit.buffers.buffer import StateBuffer
 from fruit.monitor.monitor import AgentMonitor
 import numpy as np
@@ -77,6 +80,7 @@ class Learner(threading.Thread):
         self.reset()
 
         objs = self.environment.get_number_of_objectives()
+        time_step = 0
 
         if objs <= 1:
             total_reward = 0
@@ -84,9 +88,11 @@ class Learner(threading.Thread):
             total_reward = [0] * objs
         state = self.environment.get_state()
         terminal = False
+        episode_start = time.time()
 
         while not terminal:
             action = self.get_action(state)
+            time_step += 1
             reward = self.environment.step(action)
             if objs <= 1:
                 total_reward += reward
@@ -97,10 +103,13 @@ class Learner(threading.Thread):
             self.update(state, action, reward, next_state, terminal)
             state = next_state
 
-        self.episode_end()
+        episode_secs = time.time() - episode_start
+
+        self.episode_end(total_reward, time_step, episode_secs)
+
         return total_reward
 
-    def episode_end(self):
+    def episode_end(self, episode_reward, episode_steps, episode_secs):
         """
         This is a callback function, which is called when an episode ends.
         """
