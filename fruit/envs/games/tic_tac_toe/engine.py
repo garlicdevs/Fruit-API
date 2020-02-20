@@ -1,6 +1,5 @@
 from fruit.envs.games.engine import BaseEngine
 import numpy as np
-import itertools
 
 
 class TicTacToe(BaseEngine):
@@ -53,7 +52,7 @@ class TicTacToe(BaseEngine):
 
         # Search cols
         c = np.asarray(self.current_state)
-        c = c.transpose()
+        c = c.transpose().tolist()
         for h in range(self.size):
             if c[h].count(1) == self.size or c[h].count(2) == self.size:
                 return True
@@ -90,6 +89,8 @@ class TicTacToe(BaseEngine):
             print(st)
 
     def __get_reward(self, arr, is_enemy):
+        if not isinstance(arr, list):
+            arr = arr.tolist()
         if not is_enemy:
             if arr.count(1) == self.size:
                 return 1
@@ -112,7 +113,7 @@ class TicTacToe(BaseEngine):
             for r in range(self.size):
                 if self.current_state[h][r] == 0:
                     actions.append(index)
-                    index += 1
+                index += 1
         return actions
 
     def step(self, action, is_enemy=False):
@@ -153,6 +154,8 @@ class TicTacToe(BaseEngine):
             r = self.__get_reward(dig, is_enemy)
             if r != 0:
                 return r
+
+            return 0
         else:
             return -1
 
@@ -164,8 +167,7 @@ class TicTacToe(BaseEngine):
         return range(self.size * self.size)
 
     def get_num_of_actions(self):
-        return self.size * self.size
-
+        return len(self.get_possible_actions())
 
 
 if __name__ == '__main__':
@@ -177,37 +179,32 @@ if __name__ == '__main__':
     print('Num of Actions', num_actions)
 
     for i in range(100):
-        # Player 1
+        # Player
+        print('------ PLAYER PHASE -----')
         actions = game.get_possible_actions()
         rand_action = np.random.choice(actions)
         print('Action', rand_action)
-
         reward = game.step(rand_action)
-
         print('Reward', reward)
-
         state = game.get_state()
         print('State', state)
-
-        terminal = game.is_terminal()
-        if terminal:
-            game.print()
-            print()
-            break
-
-        # Player 2
-        actions = game.get_possible_actions()
-        rand_action = np.random.choice(actions)
-        print('Action', rand_action)
-
-        reward = game.step(rand_action, is_enemy=True)
-        print('Reward', reward)
-
-        state = game.get_state()
-        print('State', state)
-
         terminal = game.is_terminal()
         game.print()
-        print()
+        if terminal:
+            break
+        print('------ ----------- -----\n')
+
+        # Enemy
+        print('------ ENEMY PHASE -----')
+        actions = game.get_possible_actions()
+        rand_action = np.random.choice(actions)
+        print('Action', rand_action)
+        reward = game.step(rand_action, is_enemy=True)
+        print('Reward', reward)
+        state = game.get_state()
+        print('State', state)
+        terminal = game.is_terminal()
+        game.print()
+        print('------ ----------- -----\n')
         if terminal:
             break
