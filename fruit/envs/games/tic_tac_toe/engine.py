@@ -89,72 +89,76 @@ class TicTacToe(BaseEngine):
                     st += 'X | '
             print(st)
 
-    def __get_reward(self, arr, is_enemy):
-        if not is_enemy:
-            if arr.count(1) == self.size:
-                return 1
-            elif arr.count(2) == self.size:
-                return -1
-            else:
-                return 0
-        else:
-            if arr.count(1) == self.size:
-                return -1
-            elif arr.count(2) == self.size:
-                return 1
-            else:
-                return 0
+    def step(self, actions):
+        if self.states[action] == 0:
 
-    def get_possible_actions(self):
-        index = 0
-        actions = []
-        for h in range(self.size):
-            for r in range(self.size):
-                if self.current_state[h][r] == 0:
-                    actions.append(index)
-                    index += 1
-        return actions
-
-    def step(self, action, is_enemy=False):
-        h = int(action / self.size)
-        w = action % self.size
-
-        if self.current_state[h][w] == 0:
             if is_enemy:
-                self.current_state[h][w] = 2
+                self.states[action] = 2
             else:
-                self.current_state[h][w] = 1
+                self.states[action] = 1
 
             # Search rows
-            for h in range(self.size):
-                r = self.__get_reward(self.current_state[h], is_enemy)
-                if r != 0:
-                    return r
+            rows = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
+            for r in rows:
+                s = self.__get_reward(r)
+                if s != 0:
+                    return s
 
             # Search cols
-            c = np.asarray(self.current_state)
-            c = c.transpose()
-            for h in range(self.size):
-                r = self.__get_reward(c[h], is_enemy)
-                if r != 0:
-                    return r
+            cols = [[0, 3, 6], [1, 4, 7], [2, 5, 8]]
+            for c in cols:
+                s = self.__get_reward(c)
+                if s != 0:
+                    return s
 
-            # Search dig 1
-            c = np.asarray(self.current_state)
-            dig = list(np.diagonal(c))
-            r = self.__get_reward(dig, is_enemy)
-            if r != 0:
-                return r
+            # Search digs
+            digs = [[0, 4, 8], [2, 4, 6]]
+            for d in digs:
+                s = self.__get_reward(d)
+                if s != 0:
+                    return s
 
-            # Search dig 2
-            c = np.asarray(self.current_state)
-            c = np.rot90(c)
-            dig = list(np.diagonal(c))
-            r = self.__get_reward(dig, is_enemy)
-            if r != 0:
-                return r
+            if self.enemy_mode == 0: # Random mode
+                rs = []
+                for i in range(len(self.states)):
+                    if self.states[i] == 0:
+                        rs.append(i)
+                if len(rs) > 0:
+                    rn = np.random.randint(0, len(rs))
+                    self.states[rs[rn]] = 2
+
+            # Search rows
+            for r in rows:
+                s = self.__get_reward(r)
+                if s != 0:
+                    return s
+
+            # Search cols
+            for c in cols:
+                s = self.__get_reward(c)
+                if s != 0:
+                    return s
+
+            # Search digs
+            for d in digs:
+                s = self.__get_reward(d)
+                if s != 0:
+                    return s
+
+            return 0
         else:
             return -1
+
+    def __get_reward(self, r):
+        # Win
+        if self.states[r[0]] == 1 and self.states[r[1]] == 1 and self.states[r[2]] == 1:
+            return 1
+        # Lose
+        elif self.states[r[0]] == 2 and self.states[r[1]] == 2 and self.states[r[2]] == 2:
+            return -1
+        # Not win or lose
+        else:
+            return 0
 
     def get_state_space(self):
         from fruit.types.priv import Space
@@ -167,7 +171,6 @@ class TicTacToe(BaseEngine):
         return self.size * self.size
 
 
-
 if __name__ == '__main__':
     game = TicTacToe()
 
@@ -176,36 +179,13 @@ if __name__ == '__main__':
     num_actions = game.get_num_of_actions()
     print('Num of Actions', num_actions)
 
-    for i in range(100):
-        # Player 1
-        actions = game.get_possible_actions()
-        rand_action = np.random.choice(actions)
+    for i in range(1000):
+        rand_action = np.random.randint(0, num_actions)
         print('Action', rand_action)
-
         reward = game.step(rand_action)
-
         print('Reward', reward)
-
         state = game.get_state()
         print('State', state)
-
-        terminal = game.is_terminal()
-        if terminal:
-            game.print()
-            print()
-            break
-
-        # Player 2
-        actions = game.get_possible_actions()
-        rand_action = np.random.choice(actions)
-        print('Action', rand_action)
-
-        reward = game.step(rand_action, is_enemy=True)
-        print('Reward', reward)
-
-        state = game.get_state()
-        print('State', state)
-
         terminal = game.is_terminal()
         game.print()
         print()
