@@ -140,13 +140,4 @@ the development of **Fruit API**.
 
 Please cite our work in your papers or projects as follows. All contributions to the work are welcome.
 
-```bibtex
-@misc{nguyen2019fruitapi,
-    author = {{Nguyen}, N.~D. and {Nguyen}, T.~T.},
-    title = {Fruit API - A Universal Deep Reinforcement Learning Framework},
-    year = {2019},
-    publisher = {GitHub},
-    journal = {GitHub repository},
-    howpublished = {\url{https://github.com/garlicdevs/Fruit-API}},
-}
-```
+Ngoc Duy Nguyen, Thanh Thi Nguyen, Hai Nguyen, and Saeid Nahavandi, "Review, Analyze, and Design a Comprehensive Deep Reinforcement Learning Framework", DOI: 10.13140/RG.2.2.16789.06883, 2020.
