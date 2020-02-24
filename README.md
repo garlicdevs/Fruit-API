@@ -140,4 +140,4 @@ the development of **Fruit API**.
 
 Please cite our work in your papers or projects as follows. All contributions to the work are welcome.
 
-Ngoc Duy Nguyen, Thanh Thi Nguyen, Hai Nguyen, and Saeid Nahavandi, "Review, Analyze, and Design a Comprehensive Deep Reinforcement Learning Framework", DOI: 10.13140/RG.2.2.16789.06883, 2020.
+Ngoc Duy Nguyen, Thanh Thi Nguyen, Hai Nguyen, and Saeid Nahavandi, "Review, Analyze, and Design a Comprehensive Deep Reinforcement Learning Framework," DOI: 10.13140/RG.2.2.16789.06883, 2020.
