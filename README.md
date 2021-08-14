@@ -136,8 +136,3 @@ Please visit our official website [here](http://fruitlab.org/) for more updates,
 [ReinforcePy](https://github.com/Islandman93/reinforcepy) is a great repository that we referenced during
 the development of **Fruit API**.
 
-# Credit
-
-Please cite our work in your papers or projects as follows. All contributions to the work are welcome.
-
-Ngoc Duy Nguyen, Thanh Thi Nguyen, Hai Nguyen, and Saeid Nahavandi, "Review, Analyze, and Design a Comprehensive Deep Reinforcement Learning Framework," arXiv:2002.11883 [cs.LG], 2020. [Paper Link](https://arxiv.org/abs/2002.11883)
