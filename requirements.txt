@@ -1,7 +1,7 @@
 tflearn==0.3.2
 numpy==1.16.5
 gym==0.9.4
-Pillow==4.3.0
+Pillow==9.0.1
 psutil==5.6.3
 statsmodels==0.10.1
 tensorflow==1.12.0
